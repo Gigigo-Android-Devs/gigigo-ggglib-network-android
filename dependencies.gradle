@@ -18,18 +18,18 @@
 
 allprojects {
   ext {
-    libraries = [androidSupportV7: 'com.android.support:appcompat-v7:23.3.0',
+    libraries = [androidSupportV7: 'com.android.support:appcompat-v7:25.3.0',
 
                  retrofit        : 'com.squareup.retrofit2:retrofit:2.0.2',
                  gsonConverter   : 'com.squareup.retrofit2:converter-gson:2.0.2',
 
-                 gggLibCore      : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-android:ggglib.core:1.0.0',
-                 gggLibUtils     : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-android:ggglib.utils:1.0.0',
-                 gggLibMappers   : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-android:ggglib.mappers:1.0.0',
-                 gggLibDevice    : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-android:ggglib.device:1.0.0',
-                 gggLibLogger    : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-android:ggglib.logger:1.0.0']
+                 gggLibCore      : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.core:1.0.1',
+                 gggLibUtils     : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.utils:1.0.1',
+                 gggLibMappers   : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.mappers:1.0.1',
+                 gggLibDevice    : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.device:1.0.1',
+                 gggLibLogger    : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.logger:1.0.1']
 
-    testLibraries = [mockito      : 'org.mockito:mockito-core:2.0.31-beta',
+    testLibraries = [mockito      : 'org.mockito:mockito-core:2.7.9',
                      junit        : 'junit:junit:4.12',
                      mockWebServer: 'com.squareup.okhttp:mockwebserver:2.6.0']
 

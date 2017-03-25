@@ -58,9 +58,9 @@ dependencies {
   compile parent.ext.libraries.retrofit
   compile parent.ext.libraries.gsonConverter
 
-  compile parent.ext.modules.gggLibCore
-  compile parent.ext.modules.gggLibMappers
-  compile parent.ext.modules.gggLibLogger
+  compile parent.ext.libraries.gggLibCore
+  compile parent.ext.libraries.gggLibMappers
+  compile parent.ext.libraries.gggLibLogger
 
   testCompile parent.ext.testLibraries.junit
   testCompile parent.ext.testLibraries.mockito

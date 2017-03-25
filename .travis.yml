@@ -4,29 +4,25 @@ env:
   global:
   - ANDROID_TARGET=android-15
   - ANDROID_ABI=armeabi-v7a
-
 notifications:
-  slack: androidgigigo:iqpT5BG5SCI5HgECBCdqK0zt#integrations
-
+  slack:
+    secure: dgm176KlXUOqnT4IKNhSqZFvfCJKqGLv3hcTlM3kVOK1TCB/nHI7uvIsVL5e0Cjwjp2W8cmfX5XVhZ2aE0UfhXmdBPm7VsTrxbPHFbjP5m4LbVr9PISC7eOriCzl9CC1ZvX1YeFHw6tq8li3yxN1ePcJadObeH4Zsl1G1iSMS++k7iejH7M/H4dL1AQaMZHgi2irgqpTl1hG/zn/ZCnXSTlsztMO1MCyBPk6/RoQ9liKFluPTCxNyXF1YGzzqcZ+mSS/bqdxE8rm/56XffZIt3rTCpTENYCb8M0PIvDY0MfdC7WQvhgcJgsJlj8awmXiSoaFCUHlpBgGeDrhbS3q2DUrIJlzUUswlO1vwwnf0HajmTE8IzNgioZO17B6Zw+9GqA/aFoe5DRc7htyQy/r2ZASnJgDwkI9LEo2k8lwmgtB8QOYut5WlDWRISJ83hVL/PczPJciki3ytafdJLtOESJVFPnofZj4qi2QTlyOJDxbNesiMprMXvdyX34/AfY4fYsco8c5YnyOhuoDeaCtN4WV4n7waQZjWxeQbBMlVuk9oNAc1NfPD5sr9fcaMCRw2Yi4c4xRUYD7X9fB3ldLvSK7TGtOLzwLYPzbIG2Tnug6hGW9CaIf7bVS9918a1o5/UvPD7naZ9rd7fi5WZL1QWrnab7kZj46Uc6nCl9YYo0=
 android:
   components:
-    - tools
-    - platform-tools
-    - build-tools-23.0.1
-    - android-23
-    - extra-android-support
-    - extra-google-m2repository
-    - sys-img-armeabi-v7a-android-19
-    - extra-android-m2repository
-
+  - tools
+  - platform-tools
+  - build-tools-23.0.1
+  - android-23
+  - extra-android-support
+  - extra-google-m2repository
+  - sys-img-armeabi-v7a-android-19
+  - extra-android-m2repository
 before_install:
-   - pip install --user codecov
-
+- pip install --user codecov
 script:
-  - ./gradlew build jacocoTestReport
-  - ./gradlew check
-
+- "./gradlew build jacocoTestReport"
+- "./gradlew check"
 after_success:
-  - ./gradlew jacocoFullReport
-  - codecov
-  - bash <(curl -s https://codecov.io/bash)
+- "./gradlew jacocoFullReport"
+- codecov
+- bash <(curl -s https://codecov.io/bash)
