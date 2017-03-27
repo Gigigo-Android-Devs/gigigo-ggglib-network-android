@@ -6,6 +6,6 @@ import retrofit2.http.GET;
 
 public interface GitHubApiClient {
 
-  @GET("users/defunkt") Call<GitHubResponse> getOneUser();
+  @GET("users/Gigigo-Android-Devs") Call<GitHubResponse> getOneUser();
 
 }

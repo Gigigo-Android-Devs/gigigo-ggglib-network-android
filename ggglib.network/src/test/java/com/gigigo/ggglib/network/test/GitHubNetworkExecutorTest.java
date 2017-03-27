@@ -23,7 +23,7 @@ import static junit.framework.Assert.assertTrue;
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
  */
-public class GihubNetworkExecutorTest {
+public class GitHubNetworkExecutorTest {
 
   private Retrofit retrofit;
   private GitHubApiClient apiClient;
