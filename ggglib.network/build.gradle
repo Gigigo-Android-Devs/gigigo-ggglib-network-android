@@ -19,6 +19,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
+group='com.github.Gigigo-Android-Devs'
+
 android {
   compileSdkVersion parent.ext.androidCompileSdkVersion
   buildToolsVersion parent.ext.androidBuildToolsVersion
@@ -59,15 +61,13 @@ dependencies {
   compile parent.ext.libraries.gsonConverter
 
   compile parent.ext.libraries.gggLibCore
-  compile parent.ext.libraries.gggLibMappers
   compile parent.ext.libraries.gggLibLogger
+  compile parent.ext.libraries.gggLibMappers
 
   testCompile parent.ext.testLibraries.junit
   testCompile parent.ext.testLibraries.mockito
   testCompile parent.ext.testLibraries.mockWebServer
 }
-
-//apply plugin: 'com.google.gms.google-services'
 
 // build a jar with source files
 task sourcesJar(type: Jar) {

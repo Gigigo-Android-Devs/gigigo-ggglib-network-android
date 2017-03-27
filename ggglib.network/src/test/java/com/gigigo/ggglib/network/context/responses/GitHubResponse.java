@@ -4,26 +4,19 @@ import com.gigigo.ggglib.network.responses.ApiGenericResponse;
 import com.gigigo.ggglib.network.responses.HttpResponse;
 import com.google.gson.annotations.SerializedName;
 
+public class GitHubResponse implements ApiGenericResponse<GitHubResponse, GitHubErrorResponse> {
 
-public class GitHubResponse implements ApiGenericResponse<GitHubResponse,GitHubErrorResponse>{
+  @SerializedName("login") private String login;
 
-  @SerializedName("login")
-  private String login;
+  @SerializedName("id") private Integer id;
 
-  @SerializedName("id")
-  private Integer id;
+  @SerializedName("avatar_url") private String avatarUrl;
 
-  @SerializedName("avatar_url")
-  private String avatarUrl;
+  @SerializedName("name") private String name;
 
-  @SerializedName("name")
-  private String name;
+  @SerializedName("email") private String email;
 
-  @SerializedName("email")
-  private String email;
-
-  @SerializedName("bio")
-  private Object bio;
+  @SerializedName("bio") private Object bio;
 
   private HttpResponse httpResponse;
 
@@ -87,10 +80,6 @@ public class GitHubResponse implements ApiGenericResponse<GitHubResponse,GitHubE
     return this;
   }
 
-  @Override public GitHubErrorResponse getBusinessError() {
-    return null;
-  }
-
   @Override public void setResult(GitHubResponse gitHubResponse) {
     this.avatarUrl = gitHubResponse.avatarUrl;
     this.bio = gitHubResponse.bio;
@@ -98,7 +87,10 @@ public class GitHubResponse implements ApiGenericResponse<GitHubResponse,GitHubE
     this.id = gitHubResponse.id;
     this.email = gitHubResponse.email;
     this.name = gitHubResponse.name;
+  }
 
+  @Override public GitHubErrorResponse getBusinessError() {
+    return null;
   }
 
   @Override public void setBusinessError(GitHubErrorResponse businessError) {
@@ -110,14 +102,25 @@ public class GitHubResponse implements ApiGenericResponse<GitHubResponse,GitHubE
   }
 
   @Override public String toString() {
-    return "GitHubResponse{" +
-        "login='" + login + '\'' +
-        ", id=" + id +
-        ", avatarUrl='" + avatarUrl + '\'' +
-        ", name='" + name + '\'' +
-        ", email='" + email + '\'' +
-        ", bio=" + bio +
-        ", httpResponse=" + httpResponse +
-        '}';
+    return "GitHubResponse{"
+        + "login='"
+        + login
+        + '\''
+        + ", id="
+        + id
+        + ", avatarUrl='"
+        + avatarUrl
+        + '\''
+        + ", name='"
+        + name
+        + '\''
+        + ", email='"
+        + email
+        + '\''
+        + ", bio="
+        + bio
+        + ", httpResponse="
+        + httpResponse
+        + '}';
   }
 }

@@ -18,30 +18,31 @@
 
 package com.gigigo.ggglib.network.executors;
 
+import com.gigigo.ggglib.logger.GGGLogImpl;
+import com.gigigo.ggglib.logger.LogLevel;
 import com.gigigo.ggglib.network.converters.ErrorConverter;
 import com.gigigo.ggglib.network.defaultelements.RetryOnErrorPolicy;
 import com.gigigo.ggglib.network.responses.ApiGenericExceptionResponse;
 import com.gigigo.ggglib.network.responses.ApiGenericResponse;
 import com.gigigo.ggglib.network.responses.HttpResponse;
-import com.gigigo.ggglib.logger.GGGLogImpl;
-import com.gigigo.ggglib.logger.LogLevel;
-
 import java.io.IOException;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class RetrofitApiServiceExcecutor implements ApiServiceExecutor<Call<?>> {
+public class RetrofitApiServiceExecutor implements ApiServiceExecutor<Call<?>> {
 
   private RetryOnErrorPolicy retryOnErrorPolicy;
   private ErrorConverter errorConverter;
 
-  public RetrofitApiServiceExcecutor(RetryOnErrorPolicy retryOnErrorPolicy, ErrorConverter errorConverter) {
+  public RetrofitApiServiceExecutor(RetryOnErrorPolicy retryOnErrorPolicy,
+      ErrorConverter errorConverter) {
     this.retryOnErrorPolicy = retryOnErrorPolicy;
     this.errorConverter = errorConverter;
   }
 
-  @Override public <ApiResponse extends ApiGenericResponse> ApiGenericResponse
-  executeNetworkServiceConnection(Class<ApiResponse> responseType, Call<?> requestType) {
+  @Override
+  public <ApiResponse extends ApiGenericResponse> ApiGenericResponse executeNetworkServiceConnection(
+      Class<ApiResponse> responseType, Call<?> requestType) {
 
     ApiGenericResponse apiResponse;
     Call<ApiResponse> clonedCall;
@@ -59,11 +60,11 @@ public class RetrofitApiServiceExcecutor implements ApiServiceExecutor<Call<?>> 
         apiResponse = parseRetrofitResponseToApi(retrofitResponse);
       } catch (Exception e) {
         exception = e;
-        apiResponse = ApiGenericExceptionResponse.getApiGenericExceptionResponseInstace(e);
+        apiResponse = ApiGenericExceptionResponse.getApiGenericExceptionResponseInstance(e);
 
         GGGLogImpl.log(e.getMessage(), LogLevel.ERROR);
       }
-    }while (shouldRetry(tries, apiResponse, success, exception));
+    } while (shouldRetry(tries, apiResponse, success, exception));
 
     return apiResponse;
   }
@@ -73,36 +74,36 @@ public class RetrofitApiServiceExcecutor implements ApiServiceExecutor<Call<?>> 
 
     ApiResponse apiResponse;
 
-    if (retrofitResponse.isSuccessful()){
+    if (retrofitResponse.isSuccessful()) {
       apiResponse = retrofitResponse.body();
-    }else{
+    } else {
       apiResponse = buildApiErrorResponse(retrofitResponse);
     }
 
-    apiResponse.setHttpResponse(new HttpResponse(retrofitResponse.code(),retrofitResponse.message()));
+    apiResponse.setHttpResponse(
+        new HttpResponse(retrofitResponse.code(), retrofitResponse.message()));
     return apiResponse;
-
   }
 
-  private <ApiResponse> ApiResponse buildApiErrorResponse(
-      Response<ApiResponse> retrofitResponse) throws IOException {
+  private <ApiResponse> ApiResponse buildApiErrorResponse(Response<ApiResponse> retrofitResponse)
+      throws IOException {
     return (ApiResponse) errorConverter.convert(retrofitResponse.errorBody());
   }
 
   private boolean shouldRetry(int tries, ApiGenericResponse apiGenericResponse, boolean success,
       Exception e) {
 
-    if (success){
+    if (success) {
       return false;
-    }else{
+    } else {
       return retryPolicyResult(tries, apiGenericResponse, e);
     }
   }
 
   private boolean retryPolicyResult(int tries, ApiGenericResponse apiResponse, Exception e) {
-    if (e!=null){
+    if (e != null) {
       return exceptionRetryPolicyResult(tries, e);
-    }else{
+    } else {
       return businessErrorRetryPolicyResult(tries, apiResponse);
     }
   }
@@ -134,7 +135,7 @@ public class RetrofitApiServiceExcecutor implements ApiServiceExecutor<Call<?>> 
       return this;
     }
 
-    public RetrofitApiServiceExcecutor build() {
+    public RetrofitApiServiceExecutor build() {
 
       ErrorConverter errorConverter = this.errorConverter;
       if (errorConverter == null) {
@@ -146,7 +147,7 @@ public class RetrofitApiServiceExcecutor implements ApiServiceExecutor<Call<?>> 
         throw new IllegalStateException("RetryOnErrorPolicy Instance required.");
       }
 
-      return new RetrofitApiServiceExcecutor(retryOnErrorPolicy, errorConverter);
+      return new RetrofitApiServiceExecutor(retryOnErrorPolicy, errorConverter);
     }
   }
 }

@@ -17,6 +17,7 @@
  */
 
 package com.gigigo.ggglib.network.converters;
+
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import okhttp3.ResponseBody;
@@ -34,5 +35,4 @@ public class RetrofitErrorConverter<ErrResponse> implements Converter<ResponseBo
   @Override public ErrResponse convert(ResponseBody value) throws IOException {
     return converter.convert(value);
   }
-
 }

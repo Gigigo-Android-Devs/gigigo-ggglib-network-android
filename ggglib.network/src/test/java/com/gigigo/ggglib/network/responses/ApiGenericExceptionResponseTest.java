@@ -1,10 +1,11 @@
-package com.gigigo.ggglib.network.test;
+package com.gigigo.ggglib.network.responses;
 
 import com.gigigo.ggglib.network.responses.ApiGenericExceptionResponse;
-
-import static junit.framework.Assert.*;
 import org.junit.Test;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
 
 public class ApiGenericExceptionResponseTest {
 
@@ -13,7 +14,7 @@ public class ApiGenericExceptionResponseTest {
     Exception e = new Exception("Hello Exception World");
 
     ApiGenericExceptionResponse apiGenericExceptionResponse =
-        ApiGenericExceptionResponse.getApiGenericExceptionResponseInstace(e);
+        ApiGenericExceptionResponse.getApiGenericExceptionResponseInstance(e);
 
     assertNotNull(apiGenericExceptionResponse);
     assertNotNull(apiGenericExceptionResponse.getBusinessError());
@@ -21,7 +22,5 @@ public class ApiGenericExceptionResponseTest {
     assertNull(apiGenericExceptionResponse.getResult());
     assertEquals(apiGenericExceptionResponse.getBusinessError().getMessage(),
         "Hello Exception World");
-
   }
-
 }

@@ -18,7 +18,6 @@
 
 package com.gigigo.ggglib.network.responses;
 
-
 public class HttpResponse {
   private int httpStatus;
   private String statusMessage;
@@ -26,6 +25,10 @@ public class HttpResponse {
   public HttpResponse(int httpStatus, String statusMessage) {
     this.httpStatus = httpStatus;
     this.statusMessage = statusMessage;
+  }
+
+  public static HttpResponse getHttpResponseExceptionInstance(int code, Exception exception) {
+    return new HttpResponse(code, exception.getLocalizedMessage());
   }
 
   public int getHttpStatus() {
@@ -42,9 +45,5 @@ public class HttpResponse {
 
   public void setStatusMessage(String statusMessage) {
     this.statusMessage = statusMessage;
-  }
-
-  public static HttpResponse getHttpResponseExceptionInstance(int code, Exception exception) {
-    return new HttpResponse(code, exception.getLocalizedMessage());
   }
 }

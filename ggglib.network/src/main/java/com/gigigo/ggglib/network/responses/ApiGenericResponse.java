@@ -18,16 +18,19 @@
 
 package com.gigigo.ggglib.network.responses;
 
-
 public interface ApiGenericResponse<Result, Error> {
 
   <Result> Result getResult();
-  <Error> Error getBusinessError();
-  HttpResponse getHttpResponse();
 
   void setResult(Result result);
-  void setBusinessError(Error businessError);
-  void setHttpResponse(HttpResponse httpResponse);
-  boolean isException();
 
+  <Error> Error getBusinessError();
+
+  void setBusinessError(Error businessError);
+
+  HttpResponse getHttpResponse();
+
+  void setHttpResponse(HttpResponse httpResponse);
+
+  boolean isException();
 }

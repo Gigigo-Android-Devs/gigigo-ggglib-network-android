@@ -20,8 +20,7 @@ package com.gigigo.ggglib.network.executors;
 
 import com.gigigo.ggglib.network.responses.ApiGenericResponse;
 
-
 public interface ApiServiceExecutor<Request> {
-  <ApiResponse extends ApiGenericResponse> ApiGenericResponse executeNetworkServiceConnection
-      (Class<ApiResponse> responseType, Request requestType);
+  <ApiResponse extends ApiGenericResponse> ApiGenericResponse executeNetworkServiceConnection(
+      Class<ApiResponse> responseType, Request requestType);
 }

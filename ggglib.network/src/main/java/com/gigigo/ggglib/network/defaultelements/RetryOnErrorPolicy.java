@@ -20,7 +20,6 @@ package com.gigigo.ggglib.network.defaultelements;
 
 import com.gigigo.ggglib.network.responses.HttpResponse;
 
-
 public interface RetryOnErrorPolicy<Error> {
 
   boolean shouldRetryWithErrorAndTries(int tries, Error error, HttpResponse httpResponse);

@@ -3,14 +3,14 @@ package com.gigigo.ggglib.network.context.responses;
 import com.google.gson.annotations.SerializedName;
 
 
-public class MockApiErrorResponse {
+public class ApiErrorResponseMock {
 
   @SerializedName("code")
   private int code;
   @SerializedName("message")
   private String message;
 
-  public MockApiErrorResponse(int code, String message) {
+  public ApiErrorResponseMock(int code, String message) {
     this.code = code;
     this.message = message;
   }

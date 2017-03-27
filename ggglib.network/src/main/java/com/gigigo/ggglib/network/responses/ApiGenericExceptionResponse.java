@@ -18,7 +18,6 @@
 
 package com.gigigo.ggglib.network.responses;
 
-
 public class ApiGenericExceptionResponse implements ApiGenericResponse<Object, Exception> {
 
   public static final int HTTP_EXCEPTION_CODE = -222;
@@ -31,22 +30,27 @@ public class ApiGenericExceptionResponse implements ApiGenericResponse<Object, E
     httpResponse = HttpResponse.getHttpResponseExceptionInstance(HTTP_EXCEPTION_CODE, exception);
   }
 
+  public static ApiGenericExceptionResponse getApiGenericExceptionResponseInstance(Exception e) {
+    return new ApiGenericExceptionResponse(e);
+  }
+
   @Override public Object getResult() {
     return null;
+  }
+
+  @Override public void setResult(Object e) {
   }
 
   @Override public Exception getBusinessError() {
     return exception;
   }
 
-  @Override public HttpResponse getHttpResponse() {
-    return httpResponse;
-  }
-
-  @Override public void setResult(Object e) {}
-
   @Override public void setBusinessError(Exception businessError) {
     this.exception = businessError;
+  }
+
+  @Override public HttpResponse getHttpResponse() {
+    return httpResponse;
   }
 
   @Override public void setHttpResponse(HttpResponse httpResponse) {
@@ -55,9 +59,5 @@ public class ApiGenericExceptionResponse implements ApiGenericResponse<Object, E
 
   @Override public boolean isException() {
     return true;
-  }
-
-  public static ApiGenericExceptionResponse getApiGenericExceptionResponseInstace(Exception e){
-    return new ApiGenericExceptionResponse(e);
   }
 }

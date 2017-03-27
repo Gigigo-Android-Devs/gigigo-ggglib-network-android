@@ -4,14 +4,12 @@ import com.gigigo.ggglib.network.responses.ApiGenericResponse;
 import com.gigigo.ggglib.network.responses.HttpResponse;
 import com.google.gson.annotations.SerializedName;
 
-
-public class GitHubErrorResponse implements ApiGenericResponse<GitHubResponse,GitHubErrorResponse> {
+public class GitHubErrorResponse
+    implements ApiGenericResponse<GitHubResponse, GitHubErrorResponse> {
 
   //Error fields
-  @SerializedName("message")
-  private String message;
-  @SerializedName("documentation_url")
-  private String documentationUrl;
+  @SerializedName("message") private String message;
+  @SerializedName("documentation_url") private String documentationUrl;
 
   private HttpResponse httpResponse;
 
@@ -43,12 +41,12 @@ public class GitHubErrorResponse implements ApiGenericResponse<GitHubResponse,Gi
     return null;
   }
 
-  @Override public GitHubErrorResponse getBusinessError() {
-    return this;
-  }
-
   @Override public void setResult(GitHubResponse gitHubResponse) {
 
+  }
+
+  @Override public GitHubErrorResponse getBusinessError() {
+    return this;
   }
 
   @Override public void setBusinessError(GitHubErrorResponse businessError) {

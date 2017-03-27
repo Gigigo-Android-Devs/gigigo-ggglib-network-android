@@ -4,18 +4,18 @@ import com.gigigo.ggglib.network.responses.ApiGenericResponse;
 import com.gigigo.ggglib.network.responses.HttpResponse;
 import com.google.gson.annotations.SerializedName;
 
+public class ApiResponseMock
+    implements ApiGenericResponse<ApiDataTestMock, ApiErrorResponseMock> {
 
-public class BaseMockApiResponse<JSONData> implements
-    ApiGenericResponse<JSONData, MockApiErrorResponse> {
-
-  @SerializedName("status")
-  private String status;
-  @SerializedName("data")
-  private JSONData data;
-  @SerializedName("error")
-  private MockApiErrorResponse error;
+  @SerializedName("status") private String status;
+  @SerializedName("data") private ApiDataTestMock data;
+  @SerializedName("error") private ApiErrorResponseMock error;
 
   private HttpResponse httpResponse;
+
+  public static ApiResponseMock newExceptionInstance() {
+    return new ApiResponseMock();
+  }
 
   public String getStatus() {
     return status;
@@ -37,32 +37,27 @@ public class BaseMockApiResponse<JSONData> implements
     return false;
   }
 
-  public JSONData getData() {
+  public ApiDataTestMock getData() {
     return data;
   }
 
-  public void setData(JSONData data) {
+  public void setData(ApiDataTestMock data) {
     this.data = data;
   }
 
-  @Override public JSONData getResult() {
+  @Override public ApiDataTestMock getResult() {
     return data;
   }
 
-  @Override public void setResult(JSONData data) {
+  @Override public void setResult(ApiDataTestMock data) {
     this.data = data;
   }
 
-  @Override public void setBusinessError(MockApiErrorResponse error) {
-    this.error = error;
-  }
-
-  @Override public MockApiErrorResponse getBusinessError() {
+  @Override public ApiErrorResponseMock getBusinessError() {
     return error;
   }
 
-  public static BaseMockApiResponse newExceptionInstance(){
-    return new BaseMockApiResponse();
+  @Override public void setBusinessError(ApiErrorResponseMock error) {
+    this.error = error;
   }
-
 }
