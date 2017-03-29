@@ -167,6 +167,6 @@ public class NetworkExecutorTest {
   }
 
   private ErrorConverter buildErrorConverterInstance() {
-    return new DefaultErrorConverterImpl(retrofit, ApiResponseMock.class);
+    return new DefaultErrorConverterImpl(retrofit, ApiErrorResponseMock.class);
   }
 }
