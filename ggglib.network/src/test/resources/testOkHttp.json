@@ -1,5 +1,5 @@
 {
-  "status": "true",
+  "status": true,
   "data": {
     "test": "Hello World"
   }

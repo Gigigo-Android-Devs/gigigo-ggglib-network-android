@@ -1,11 +1,18 @@
 package com.gigigo.ggglib.network.test;
 
+import com.gigigo.ggglib.network.context.BaseApiClient;
 import com.gigigo.ggglib.network.context.GitHubApiClient;
 import com.gigigo.ggglib.network.context.collaborators.DefaultErrorConverterImpl;
 import com.gigigo.ggglib.network.context.collaborators.GithubRetryOnErrorPolicyImpl;
+import com.gigigo.ggglib.network.context.responses.ApiResponseMock;
 import com.gigigo.ggglib.network.context.responses.GitHubErrorResponse;
 import com.gigigo.ggglib.network.context.responses.GitHubResponse;
 import com.gigigo.ggglib.network.context.responses.ResponseUtils;
+import com.gigigo.ggglib.network.context.wrapper.NetworkClient;
+import com.gigigo.ggglib.network.context.wrapper.NetworkExecutor;
+import com.gigigo.ggglib.network.context.wrapper.retrofit.RetrofitNetworkClient;
+import com.gigigo.ggglib.network.context.wrapper.retrofit.RetrofitNetworkClientBuilder;
+import com.gigigo.ggglib.network.context.wrapper.retrofit.RetrofitNetworkExecutorBuilder;
 import com.gigigo.ggglib.network.converters.ErrorConverter;
 import com.gigigo.ggglib.network.defaultelements.RetryOnErrorPolicy;
 import com.gigigo.ggglib.network.executors.ApiServiceExecutor;
@@ -25,11 +32,8 @@ import static junit.framework.Assert.assertTrue;
  */
 public class GitHubNetworkExecutorTest {
 
-  private Retrofit retrofit;
-  private GitHubApiClient apiClient;
-
   @Before public void setUp() throws Exception {
-    apiClient = initializeApiclient();
+
   }
 
   @After public void tearDown() throws Exception {
@@ -47,12 +51,19 @@ public class GitHubNetworkExecutorTest {
       Thread t = new Thread(new Runnable() {
         @Override public void run() {
 
-          ApiServiceExecutor apiServiceExecutor = getServiceExecutorInstance();
-
           long startTime = System.currentTimeMillis();
 
+          NetworkClient networkClient =
+              new RetrofitNetworkClientBuilder("https://api.github.com", GitHubApiClient.class)
+                  .build();
+
+          NetworkExecutor networkExecutor =
+              new RetrofitNetworkExecutorBuilder(networkClient, GitHubErrorResponse.class).build();
+
+          GitHubApiClient apiClient = (GitHubApiClient)((RetrofitNetworkClient)networkClient).getApiClient();
+
           ApiGenericResponse apiGenericResponse =
-              apiServiceExecutor.executeNetworkServiceConnection(GitHubResponse.class,
+              networkExecutor.executeNetworkServiceConnection(ApiResponseMock.class,
                   apiClient.getOneUser());
 
           GitHubResponse gitHubResponse = (GitHubResponse) apiGenericResponse.getResult();
@@ -72,29 +83,5 @@ public class GitHubNetworkExecutorTest {
     Thread.sleep(3000);
 
     ResponseUtils.printMemoryInform();
-  }
-
-  private RetrofitApiServiceExecutor getServiceExecutorInstance() {
-    return new RetrofitApiServiceExecutor.Builder().errorConverter(buildErrorConverterInstance())
-        .retryOnErrorPolicy(buildErrorPolicyInstance())
-        .build();
-  }
-
-  private GitHubApiClient initializeApiclient() {
-
-    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.github.com")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build();
-
-    this.retrofit = retrofit;
-    return retrofit.create(GitHubApiClient.class);
-  }
-
-  private RetryOnErrorPolicy buildErrorPolicyInstance() {
-    return new GithubRetryOnErrorPolicyImpl();
-  }
-
-  private ErrorConverter buildErrorConverterInstance() {
-    return new DefaultErrorConverterImpl(retrofit, GitHubErrorResponse.class);
   }
 }
