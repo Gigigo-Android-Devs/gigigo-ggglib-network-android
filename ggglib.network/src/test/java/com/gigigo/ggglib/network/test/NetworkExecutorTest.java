@@ -69,7 +69,7 @@ public class NetworkExecutorTest {
     assertEquals(testResponse.getTest(), "Hello World");
     assertEquals(apiGenericResponse.getHttpResponse().getHttpStatus(), 200);
   }
-
+/*
   @Test public void apiServiceErrorExecutorTest() throws Exception {
     ApiServiceExecutor apiServiceExecutor = getServiceExecutorInstance();
 
@@ -82,7 +82,7 @@ public class NetworkExecutorTest {
     assertEquals(testResponse.getMessage(), "Error.");
     assertEquals(response.getHttpResponse().getHttpStatus(), ERROR_RESPONSE_CODE);
   }
-
+*/
   @Test(expected = Exception.class) public void apiServiceBadExecutorExceptionTest()
       throws Exception {
 
