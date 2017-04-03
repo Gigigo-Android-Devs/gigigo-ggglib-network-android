@@ -22,7 +22,7 @@ android:
 before_install:
 - pip install --user codecov
 script:
-- "./gradlew build jacocoTestReport"
+- "./gradlew build"
 - "./gradlew check"
 after_success:
 - "./gradlew jacocoFullReport"
