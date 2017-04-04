@@ -18,7 +18,7 @@
 
 package com.gigigo.ggglib.network.executors;
 
-import com.gigigo.ggglib.network.responses.ApiGenericResponse;
+import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericResponse;
 
 public interface ApiServiceExecutor<Request> {
   <ApiResponse extends ApiGenericResponse> ApiGenericResponse executeNetworkServiceConnection(

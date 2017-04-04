@@ -16,13 +16,21 @@
  * limitations under the License.
  */
 
-package com.gigigo.ggglib.network.defaultelements;
+package com.gigigo.ggglib.network.retrofit.context.responses;
 
-import com.gigigo.ggglib.network.retrofit.context.responses.HttpResponse;
+public interface ApiGenericResponse<Result, Error> {
 
-public interface RetryOnErrorPolicy<Error> {
+  <Result> Result getResult();
 
-  boolean shouldRetryWithErrorAndTries(int tries, Error error, HttpResponse httpResponse);
+  void setResult(Result result);
 
-  boolean shouldRetryOnException(int tries, Exception e);
+  <Error> Error getBusinessError();
+
+  void setBusinessError(Error businessError);
+
+  HttpResponse getHttpResponse();
+
+  void setHttpResponse(HttpResponse httpResponse);
+
+  boolean isException();
 }

@@ -1,1 +1,1 @@
-include ':app', ':ggglib.network'
+include ':app', ':ggglib.network', ':ggglib.network.retrofit'

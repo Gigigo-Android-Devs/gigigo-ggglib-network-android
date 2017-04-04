@@ -1,20 +1,3 @@
-/*
- * Created by Gigigo Android Team
- *
- * Copyright (C) 2016 Gigigo Mobile Services SL
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
@@ -31,16 +14,6 @@ android {
 
     versionCode generateAutoVersionCode()
     versionName generateVersionName(1,0,0)
-  }
-
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_7
-    targetCompatibility JavaVersion.VERSION_1_7
-  }
-
-  packagingOptions {
-    exclude 'META-INF/services/javax.annotation.processing.Processor'
-    exclude 'LICENSE.txt'
   }
 
   buildTypes {
@@ -60,12 +33,10 @@ android {
 }
 
 dependencies {
-
   compile parent.ext.libraries.retrofit
-  
-  compile parent.ext.libraries.gggLibCore
-  compile parent.ext.libraries.gggLibLogger
-  compile parent.ext.libraries.gggLibMappers
+  compile parent.ext.libraries.gsonConverter
+
+  compile parent.ext.modules.gggLibNetwork
 
   testCompile parent.ext.testLibraries.junit
   testCompile parent.ext.testLibraries.mockito
