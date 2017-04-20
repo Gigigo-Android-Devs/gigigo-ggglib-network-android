@@ -1,5 +1,5 @@
 <!--
-  ~ Created by Orchextra
+  ~ Created by Gigigo Android Team
   ~
   ~ Copyright (C) 2016 Gigigo Mobile Services SL
   ~
@@ -19,7 +19,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gigigo.ggglib.network"
     >
-
 
     <application
       android:allowBackup="true"
