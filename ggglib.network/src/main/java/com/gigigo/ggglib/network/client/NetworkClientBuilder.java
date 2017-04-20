@@ -1,4 +1,4 @@
-package com.gigigo.ggglib.network;
+package com.gigigo.ggglib.network.client;
 
 import okhttp3.Interceptor;
 import retrofit2.Converter;

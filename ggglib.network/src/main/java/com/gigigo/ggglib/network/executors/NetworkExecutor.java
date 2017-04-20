@@ -7,6 +7,6 @@ import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericResponse;
  */
 
 public interface NetworkExecutor<Request> {
-  <ApiResponse extends ApiGenericResponse> ApiGenericResponse executeNetworkServiceConnection(
-      Class<ApiResponse> responseType, Request requestType);
+  ApiGenericResponse executeNetworkServiceConnection(
+      Class<? extends ApiGenericResponse> responseType, Request requestType);
 }

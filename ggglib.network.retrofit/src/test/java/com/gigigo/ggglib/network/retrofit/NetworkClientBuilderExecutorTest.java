@@ -1,9 +1,10 @@
 package com.gigigo.ggglib.network.retrofit;
 
-import com.gigigo.ggglib.network.NetworkClient;
+import com.gigigo.ggglib.network.client.NetworkClient;
 import com.gigigo.ggglib.network.executors.NetworkExecutor;
+import com.gigigo.ggglib.network.retrofit.client.RetrofitNetworkClient;
+import com.gigigo.ggglib.network.retrofit.client.RetrofitNetworkClientBuilder;
 import com.gigigo.ggglib.network.retrofit.context.BaseApiClient;
-import com.gigigo.ggglib.network.retrofit.context.GitHubApiClient;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiDataTestMock;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericExceptionResponse;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericResponse;

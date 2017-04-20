@@ -20,6 +20,6 @@ package com.gigigo.ggglib.network.converters;
 
 import java.io.IOException;
 
-public interface ErrorConverter<ErrResponse, ResponseBody> {
-  ErrResponse convert(ResponseBody value) throws IOException;
+public interface ErrorConverter<ErrorResponse, ResponseBody> {
+  ErrorResponse convert(ResponseBody value) throws IOException;
 }

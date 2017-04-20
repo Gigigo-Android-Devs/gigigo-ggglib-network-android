@@ -1,6 +1,6 @@
-package com.gigigo.ggglib.network.retrofit;
+package com.gigigo.ggglib.network.retrofit.client;
 
-import com.gigigo.ggglib.network.NetworkClient;
+import com.gigigo.ggglib.network.client.NetworkClient;
 import retrofit2.Retrofit;
 
 /**

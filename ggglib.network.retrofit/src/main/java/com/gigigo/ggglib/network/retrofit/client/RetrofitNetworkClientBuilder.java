@@ -1,7 +1,7 @@
-package com.gigigo.ggglib.network.retrofit;
+package com.gigigo.ggglib.network.retrofit.client;
 
-import com.gigigo.ggglib.network.NetworkClient;
-import com.gigigo.ggglib.network.NetworkClientBuilder;
+import com.gigigo.ggglib.network.client.NetworkClient;
+import com.gigigo.ggglib.network.client.NetworkClientBuilder;
 import java.util.concurrent.TimeUnit;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;

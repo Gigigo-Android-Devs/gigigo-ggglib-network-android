@@ -1,4 +1,4 @@
-package com.gigigo.ggglib.network;
+package com.gigigo.ggglib.network.client;
 
 /**
  * Created by rui.alonso on 31/3/17.

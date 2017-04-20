@@ -1,10 +1,10 @@
 package com.gigigo.ggglib.network.retrofit.executors;
 
-import com.gigigo.ggglib.network.NetworkClient;
+import com.gigigo.ggglib.network.client.NetworkClient;
 import com.gigigo.ggglib.network.executors.NetworkExecutor;
 import com.gigigo.ggglib.network.executors.NetworkExecutorBuilder;
 import com.gigigo.ggglib.network.executors.ApiServiceExecutor;
-import com.gigigo.ggglib.network.retrofit.RetrofitNetworkClient;
+import com.gigigo.ggglib.network.retrofit.client.RetrofitNetworkClient;
 import com.gigigo.ggglib.network.retrofit.converters.DefaultErrorConverterImpl;
 import com.gigigo.ggglib.network.retry.DefaultRetryOnErrorPolicyImpl;
 
