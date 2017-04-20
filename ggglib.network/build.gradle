@@ -60,8 +60,10 @@ android {
 }
 
 dependencies {
-
-  compile parent.ext.libraries.retrofit
+  compile (parent.ext.libraries.retrofit) {
+    exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+  }
+  compile parent.ext.libraries.okHttp
   
   compile parent.ext.libraries.gggLibCore
   compile parent.ext.libraries.gggLibLogger
@@ -69,7 +71,6 @@ dependencies {
 
   testCompile parent.ext.testLibraries.junit
   testCompile parent.ext.testLibraries.mockito
-  testCompile parent.ext.testLibraries.mockWebServer
 }
 
 // build a jar with source files
