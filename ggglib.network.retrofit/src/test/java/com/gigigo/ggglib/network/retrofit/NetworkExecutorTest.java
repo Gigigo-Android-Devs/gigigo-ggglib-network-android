@@ -1,20 +1,22 @@
 package com.gigigo.ggglib.network.retrofit;
 
-import com.gigigo.ggglib.network.retrofit.context.responses.utils.ResponseUtils;
-import com.gigigo.ggglib.network.retrofit.context.BaseApiClient;
-import com.gigigo.ggglib.network.retrofit.converters.DefaultErrorConverterImpl;
-import com.gigigo.ggglib.network.retrofit.executors.RetrofitApiServiceExecutor;
-import com.gigigo.ggglib.network.retry.DefaultRetryOnErrorPolicyImpl;
-import com.gigigo.ggglib.network.retry.NoExceptionRetryOnErrorPolicyImpl;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiErrorResponseMock;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiResponseMock;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiDataTestMock;
 import com.gigigo.ggglib.network.converters.ErrorConverter;
 import com.gigigo.ggglib.network.defaultelements.RetryOnErrorPolicy;
-import com.gigigo.ggglib.network.executors.ApiServiceExecutor;
+import com.gigigo.ggglib.network.executors.NetworkExecutor;
+import com.gigigo.ggglib.network.retrofit.client.RetrofitNetworkClient;
+import com.gigigo.ggglib.network.retrofit.context.BaseApiClient;
+import com.gigigo.ggglib.network.retrofit.context.responses.ApiDataTestMock;
+import com.gigigo.ggglib.network.retrofit.context.responses.ApiErrorResponseMock;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericExceptionResponse;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericResponse;
+import com.gigigo.ggglib.network.retrofit.context.responses.ApiResponseMock;
+import com.gigigo.ggglib.network.retrofit.context.responses.GitHubResponse;
 import com.gigigo.ggglib.network.retrofit.context.responses.HttpResponse;
+import com.gigigo.ggglib.network.retrofit.context.responses.utils.ResponseUtils;
+import com.gigigo.ggglib.network.retrofit.converters.DefaultErrorConverterImpl;
+import com.gigigo.ggglib.network.retrofit.executors.RetrofitNetworkExecutorBuilder;
+import com.gigigo.ggglib.network.retry.DefaultRetryOnErrorPolicyImpl;
+import com.gigigo.ggglib.network.retry.NoExceptionRetryOnErrorPolicyImpl;
 import com.squareup.okhttp.mockwebserver.Dispatcher;
 import com.squareup.okhttp.mockwebserver.MockResponse;
 import com.squareup.okhttp.mockwebserver.MockWebServer;
@@ -22,11 +24,14 @@ import com.squareup.okhttp.mockwebserver.RecordedRequest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
 
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
@@ -34,71 +39,73 @@ import static junit.framework.Assert.assertNotNull;
 public class NetworkExecutorTest {
 
   private final static int ERROR_RESPONSE_CODE = 500;
-
+  @Mock RetrofitNetworkClient networkClient;
   private MockWebServer server;
   private Retrofit retrofit;
   private BaseApiClient apiClient;
 
   @Before public void setUp() throws Exception {
+    MockitoAnnotations.initMocks(this);
     this.server = new MockWebServer();
     server.setDispatcher(getMockwebserverDispatcherInstance());
     apiClient = initializeApiclient();
+
+    when(networkClient.getRetrofit()).thenReturn(retrofit);
   }
 
   @Test(expected = IllegalStateException.class) public void serviceExecutorInstanceBuilderTest1()
       throws Exception {
-    new RetrofitApiServiceExecutor.Builder().errorConverter(null).retryOnErrorPolicy(null).build();
-  }
-
-  @Test(expected = IllegalStateException.class) public void serviceExecutorInstanceBuilderTest2()
-      throws Exception {
-    new RetrofitApiServiceExecutor.Builder().errorConverter(buildErrorConverterInstance())
+    new RetrofitNetworkExecutorBuilder(networkClient, GitHubResponse.class).errorConverter(null)
         .retryOnErrorPolicy(null)
         .build();
   }
 
+  @Test(expected = IllegalStateException.class) public void serviceExecutorInstanceBuilderTest2()
+      throws Exception {
+    new RetrofitNetworkExecutorBuilder(networkClient, GitHubResponse.class).errorConverter(
+        buildErrorConverterInstance()).retryOnErrorPolicy(null).build();
+  }
+
   @Test public void apiServiceOKExecutorTest() throws Exception {
-    ApiServiceExecutor apiServiceExecutor = getServiceExecutorInstance();
+    NetworkExecutor apiServiceExecutor = getServiceExecutorInstance();
 
     ApiGenericResponse apiGenericResponse =
-        apiServiceExecutor.executeNetworkServiceConnection(ApiResponseMock.class,
-            apiClient.testHttpConnection("ok"));
+        apiServiceExecutor.call(apiClient.testHttpConnection("ok"));
 
     ApiDataTestMock testResponse = (ApiDataTestMock) apiGenericResponse.getResult();
 
     assertEquals(testResponse.getTest(), "Hello World");
     assertEquals(apiGenericResponse.getHttpResponse().getHttpStatus(), 200);
   }
-/*
-  @Test public void apiServiceErrorExecutorTest() throws Exception {
-    ApiServiceExecutor apiServiceExecutor = getServiceExecutorInstance();
 
-    ApiGenericResponse response =
-        apiServiceExecutor.executeNetworkServiceConnection(ApiResponseMock.class,
-            apiClient.testHttpConnection("error"));
+  /*
+    @Test public void apiServiceErrorExecutorTest() throws Exception {
+      ApiServiceExecutor apiServiceExecutor = getServiceExecutorInstance();
 
-    ApiErrorResponseMock testResponse = (ApiErrorResponseMock) response.getBusinessError();
+      ApiGenericResponse response =
+          apiServiceExecutor.call(ApiResponseMock.class,
+              apiClient.testHttpConnection("error"));
 
-    assertEquals(testResponse.getMessage(), "Error.");
-    assertEquals(response.getHttpResponse().getHttpStatus(), ERROR_RESPONSE_CODE);
-  }
-*/
+      ApiErrorResponseMock testResponse = (ApiErrorResponseMock) response.getBusinessError();
+
+      assertEquals(testResponse.getMessage(), "Error.");
+      assertEquals(response.getHttpResponse().getHttpStatus(), ERROR_RESPONSE_CODE);
+    }
+  */
   @Test(expected = Exception.class) public void apiServiceBadExecutorExceptionTest()
       throws Exception {
 
-    ApiServiceExecutor apiServiceExecutor = getServiceExecutorInstance();
+    NetworkExecutor apiServiceExecutor = getServiceExecutorInstance();
 
-    apiServiceExecutor.executeNetworkServiceConnection(ApiResponseMock.class,
-        apiClient.testHttpConnection("bad"));
+    apiServiceExecutor.call(apiClient.testHttpConnection("bad"));
   }
 
   @Test public void apiServiceBadExecutorExceptionErrorBusinessTest() throws Exception {
 
-    ApiServiceExecutor apiServiceExecutor = getServiceExecutorExceptionHandlerInstance();
+    NetworkExecutor apiServiceExecutor = getServiceExecutorExceptionHandlerInstance();
 
     ApiGenericResponse apiGenericResponse =
-        apiServiceExecutor.executeNetworkServiceConnection(ApiResponseMock.class,
-            apiClient.testHttpConnection("bad"));
+        apiServiceExecutor.call(apiClient.testHttpConnection("bad"));
 
     Exception exception = (Exception) apiGenericResponse.getBusinessError();
     HttpResponse httpResponse = apiGenericResponse.getHttpResponse();
@@ -109,9 +116,6 @@ public class NetworkExecutorTest {
   @After public void tearDown() throws Exception {
     server.shutdown();
   }
-
-
-
 
   private Dispatcher getMockwebserverDispatcherInstance() {
     return new Dispatcher() {
@@ -145,18 +149,17 @@ public class NetworkExecutorTest {
     return retrofit.create(BaseApiClient.class);
   }
 
-  private ApiServiceExecutor getServiceExecutorExceptionHandlerInstance() {
-    return new RetrofitApiServiceExecutor.Builder().errorConverter(buildErrorConverterInstance())
+  private NetworkExecutor getServiceExecutorExceptionHandlerInstance() {
+    return new RetrofitNetworkExecutorBuilder(networkClient, GitHubResponse.class).errorConverter(
+        buildErrorConverterInstance())
         .retryOnErrorPolicy(buildErrorPolicyInstanceWithoutThrowException())
         .build();
   }
 
-  private RetrofitApiServiceExecutor getServiceExecutorInstance() {
-    return new RetrofitApiServiceExecutor.Builder().errorConverter(buildErrorConverterInstance())
-        .retryOnErrorPolicy(buildErrorPolicyInstance())
-        .build();
+  private NetworkExecutor getServiceExecutorInstance() {
+    return new RetrofitNetworkExecutorBuilder(networkClient, GitHubResponse.class).errorConverter(
+        buildErrorConverterInstance()).retryOnErrorPolicy(buildErrorPolicyInstance()).build();
   }
-
 
   private RetryOnErrorPolicy buildErrorPolicyInstance() {
     return new DefaultRetryOnErrorPolicyImpl();

@@ -2,12 +2,12 @@ package com.gigigo.ggglib.network.retrofit.context.mappers;
 
 import com.gigigo.ggglib.core.business.model.BusinessContentType;
 import com.gigigo.ggglib.core.business.model.BusinessObject;
+import com.gigigo.ggglib.network.executors.NetworkExecutor;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiDataTestMock;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiErrorResponseMock;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiResponseMock;
-import com.gigigo.ggglib.network.executors.ApiServiceExecutor;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericExceptionResponse;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericResponse;
+import com.gigigo.ggglib.network.retrofit.context.responses.ApiResponseMock;
 import com.gigigo.ggglib.network.retrofit.context.responses.HttpResponse;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,28 +18,23 @@ import static org.mockito.Mockito.when;
 
 public class ApiGenericResponseMapperTest {
 
-  ApiServiceExecutor apiServiceExecutor;
+  NetworkExecutor apiServiceExecutor;
   ApiGenericResponseMapper apiGenericResponseMapper;
 
   @Before public void setUp() {
 
-    apiServiceExecutor = Mockito.mock(ApiServiceExecutor.class);
+    apiServiceExecutor = Mockito.mock(NetworkExecutor.class);
     apiGenericResponseMapper = new BaseTestApiResponseMapper(new TestMapper());
 
-    when(
-        apiServiceExecutor.executeNetworkServiceConnection(ApiResponseMock.class, "ok")).thenReturn(
-        mockApiResponseOkClass());
+    when(apiServiceExecutor.call("ok")).thenReturn(mockApiResponseOkClass());
 
-    when(apiServiceExecutor.executeNetworkServiceConnection(ApiResponseMock.class,
-        "error")).thenReturn(mockApiResponseBusinessErrorClass());
+    when(apiServiceExecutor.call("error")).thenReturn(mockApiResponseBusinessErrorClass());
 
-    when(apiServiceExecutor.executeNetworkServiceConnection(ApiResponseMock.class,
-        "bad")).thenReturn(mockApiResponseExceptionClass());
+    when(apiServiceExecutor.call("bad")).thenReturn(mockApiResponseExceptionClass());
   }
 
   @Test public void mapperOkResultTest() throws Exception {
-    ApiGenericResponse apiGenericResponse =
-        apiServiceExecutor.executeNetworkServiceConnection(ApiResponseMock.class, "ok");
+    ApiGenericResponse apiGenericResponse = apiServiceExecutor.call("ok");
 
     BusinessObject<DataTestMock> bo =
         apiGenericResponseMapper.mapApiGenericResponseToBusiness(apiGenericResponse);
@@ -50,8 +45,7 @@ public class ApiGenericResponseMapperTest {
   }
 
   @Test public void mapperErrorResultTest() throws Exception {
-    ApiGenericResponse apiGenericResponse =
-        apiServiceExecutor.executeNetworkServiceConnection(ApiResponseMock.class, "error");
+    ApiGenericResponse apiGenericResponse = apiServiceExecutor.call("error");
 
     BusinessObject<DataTestMock> bo =
         apiGenericResponseMapper.mapApiGenericResponseToBusiness(apiGenericResponse);
@@ -62,8 +56,7 @@ public class ApiGenericResponseMapperTest {
   }
 
   @Test public void mapperBadResultTest() throws Exception {
-    ApiGenericResponse apiGenericResponse =
-        apiServiceExecutor.executeNetworkServiceConnection(ApiResponseMock.class, "bad");
+    ApiGenericResponse apiGenericResponse = apiServiceExecutor.call("bad");
 
     BusinessObject<DataTestMock> bo =
         apiGenericResponseMapper.mapApiGenericResponseToBusiness(apiGenericResponse);

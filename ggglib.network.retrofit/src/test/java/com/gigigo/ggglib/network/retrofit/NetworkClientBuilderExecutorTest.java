@@ -2,7 +2,6 @@ package com.gigigo.ggglib.network.retrofit;
 
 import com.gigigo.ggglib.network.client.NetworkClient;
 import com.gigigo.ggglib.network.executors.NetworkExecutor;
-import com.gigigo.ggglib.network.retrofit.client.RetrofitNetworkClient;
 import com.gigigo.ggglib.network.retrofit.client.RetrofitNetworkClientBuilder;
 import com.gigigo.ggglib.network.retrofit.context.BaseApiClient;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiDataTestMock;
@@ -46,12 +45,10 @@ public class NetworkClientBuilderExecutorTest {
     NetworkExecutor networkExecutor =
         new RetrofitNetworkExecutorBuilder(networkClient, GitHubResponse.class).build();
 
-    BaseApiClient apiClient =
-        (BaseApiClient) ((RetrofitNetworkClient) networkClient).getApiClient();
+    BaseApiClient apiClient = (BaseApiClient) networkClient.getApiClient();
 
     ApiGenericResponse response =
-        networkExecutor.executeNetworkServiceConnection(ApiResponseMock.class,
-            apiClient.testHttpConnection("ok"));
+        networkExecutor.call(apiClient.testHttpConnection("ok"));
 
     ApiDataTestMock testResponse = (ApiDataTestMock) response.getResult();
 
@@ -71,7 +68,7 @@ public class NetworkClientBuilderExecutorTest {
         (BaseApiClient) ((RetrofitNetworkClient) networkClient).getApiClient();
 
     ApiGenericResponse response =
-        networkExecutor.executeNetworkServiceConnection(ApiErrorResponseMock.class,
+        networkExecutor.call(ApiErrorResponseMock.class,
             apiClient.testHttpConnection("error"));
 
     ApiErrorResponseMock testResponse = (ApiErrorResponseMock) response.getBusinessError();
@@ -90,11 +87,9 @@ public class NetworkClientBuilderExecutorTest {
     NetworkExecutor networkExecutor =
         new RetrofitNetworkExecutorBuilder(networkClient, ApiResponseMock.class).build();
 
-    BaseApiClient apiClient =
-        (BaseApiClient) ((RetrofitNetworkClient) networkClient).getApiClient();
+    BaseApiClient apiClient = (BaseApiClient) networkClient.getApiClient();
 
-    networkExecutor.executeNetworkServiceConnection(ApiResponseMock.class,
-        apiClient.testHttpConnection("bad"));
+    networkExecutor.call(apiClient.testHttpConnection("bad"));
   }
 
   @Test public void apiServiceBadExecutorExceptionErrorBusinessTest() throws Exception {
@@ -106,12 +101,10 @@ public class NetworkClientBuilderExecutorTest {
         new RetrofitNetworkExecutorBuilder(networkClient, ApiResponseMock.class).retryOnErrorPolicy(
             new NoExceptionRetryOnErrorPolicyImpl()).build();
 
-    BaseApiClient apiClient =
-        (BaseApiClient) ((RetrofitNetworkClient) networkClient).getApiClient();
+    BaseApiClient apiClient = (BaseApiClient) networkClient.getApiClient();
 
     ApiGenericResponse response =
-        networkExecutor.executeNetworkServiceConnection(ApiResponseMock.class,
-            apiClient.testHttpConnection("bad"));
+        networkExecutor.call(apiClient.testHttpConnection("bad"));
 
     Exception exception = (Exception) response.getBusinessError();
     HttpResponse httpResponse = response.getHttpResponse();

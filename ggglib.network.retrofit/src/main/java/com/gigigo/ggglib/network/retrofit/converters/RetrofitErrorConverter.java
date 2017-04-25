@@ -24,15 +24,16 @@ import okhttp3.ResponseBody;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 
-public class RetrofitErrorConverter<ErrResponse> implements Converter<ResponseBody, ErrResponse> {
+public class RetrofitErrorConverter<ErrorResponse>
+    implements Converter<ResponseBody, ErrorResponse> {
 
-  private Converter<ResponseBody, ErrResponse> converter;
+  private Converter<ResponseBody, ErrorResponse> converter;
 
-  public RetrofitErrorConverter(Retrofit retrofit, Class<ErrResponse> errorResponse) {
+  public RetrofitErrorConverter(Retrofit retrofit, Class<ErrorResponse> errorResponse) {
     converter = retrofit.responseBodyConverter(errorResponse, new Annotation[0]);
   }
 
-  @Override public ErrResponse convert(ResponseBody value) throws IOException {
+  @Override public ErrorResponse convert(ResponseBody value) throws IOException {
     return converter.convert(value);
   }
 }

@@ -1,16 +1,15 @@
 package com.gigigo.ggglib.network.retrofit;
 
-import com.gigigo.ggglib.network.retrofit.client.RetrofitNetworkClient;
+import com.gigigo.ggglib.network.client.NetworkClient;
+import com.gigigo.ggglib.network.executors.NetworkExecutor;
 import com.gigigo.ggglib.network.retrofit.client.RetrofitNetworkClientBuilder;
 import com.gigigo.ggglib.network.retrofit.context.GitHubApiClient;
 import com.gigigo.ggglib.network.retrofit.context.collaborators.GithubRetryOnErrorPolicyImpl;
+import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericResponse;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiResponseMock;
 import com.gigigo.ggglib.network.retrofit.context.responses.GitHubErrorResponse;
 import com.gigigo.ggglib.network.retrofit.context.responses.GitHubResponse;
 import com.gigigo.ggglib.network.retrofit.context.responses.utils.ResponseUtils;
-import com.gigigo.ggglib.network.client.NetworkClient;
-import com.gigigo.ggglib.network.executors.NetworkExecutor;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericResponse;
 import com.gigigo.ggglib.network.retrofit.executors.RetrofitNetworkExecutorBuilder;
 import org.junit.After;
 import org.junit.Before;
@@ -52,12 +51,10 @@ public class GitHubNetworkExecutorTest {
               GitHubErrorResponse.class).retryOnErrorPolicy(new GithubRetryOnErrorPolicyImpl())
               .build();
 
-          GitHubApiClient apiClient =
-              (GitHubApiClient) ((RetrofitNetworkClient) networkClient).getApiClient();
+          GitHubApiClient apiClient = (GitHubApiClient) networkClient.getApiClient();
 
           ApiGenericResponse apiGenericResponse =
-              networkExecutor.executeNetworkServiceConnection(ApiResponseMock.class,
-                  apiClient.getOneUser());
+              networkExecutor.call(apiClient.getOneUser());
 
           GitHubResponse gitHubResponse = (GitHubResponse) apiGenericResponse.getResult();
 

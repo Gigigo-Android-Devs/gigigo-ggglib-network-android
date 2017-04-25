@@ -2,8 +2,9 @@ package com.gigigo.ggglib.network.retrofit.client;
 
 import com.gigigo.ggglib.network.client.NetworkClient;
 import com.gigigo.ggglib.network.client.NetworkClientBuilder;
+import com.gigigo.ggglib.network.retrofit.RetrofitNetworkInterceptor;
+import com.gigigo.ggglib.network.retrofit.converters.RetrofitResponseConverter;
 import java.util.concurrent.TimeUnit;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
@@ -12,15 +13,16 @@ import retrofit2.Retrofit;
  * Created by rui.alonso on 28/3/17.
  */
 
-public class RetrofitNetworkClientBuilder implements NetworkClientBuilder {
+public class RetrofitNetworkClientBuilder
+    implements NetworkClientBuilder<RetrofitNetworkInterceptor, RetrofitResponseConverter> {
   private final String endpoint;
   private final Class apiClientClass;
   private int connectTimeoutSeconds = 30;
   private int readTimeoutSeconds = 30;
   private int writeTimeoutSeconds = 30;
 
-  private Interceptor defaultHeadersInterceptor;
-  private Interceptor defaultLoggingInterceptor;
+  private RetrofitNetworkInterceptor defaultHeadersInterceptor;
+  private RetrofitNetworkInterceptor defaultLoggingInterceptor;
 
   private Converter.Factory defaultConverterFactory;
 
@@ -44,17 +46,19 @@ public class RetrofitNetworkClientBuilder implements NetworkClientBuilder {
     return this;
   }
 
-  @Override public NetworkClientBuilder headersInterceptor(Interceptor headersInterceptor) {
+  @Override
+  public NetworkClientBuilder headersInterceptor(RetrofitNetworkInterceptor headersInterceptor) {
     if (headersInterceptor != null) defaultHeadersInterceptor = headersInterceptor;
     return this;
   }
 
-  @Override public NetworkClientBuilder loggingInterceptor(Interceptor loggingInterceptor) {
+  @Override
+  public NetworkClientBuilder loggingInterceptor(RetrofitNetworkInterceptor loggingInterceptor) {
     if (loggingInterceptor != null) defaultLoggingInterceptor = loggingInterceptor;
     return this;
   }
 
-  @Override public NetworkClientBuilder converterFactory(Converter.Factory converterFactory) {
+  @Override public NetworkClientBuilder converterFactory(RetrofitResponseConverter converterFactory) {
     if (converterFactory != null) defaultConverterFactory = converterFactory;
     return this;
   }

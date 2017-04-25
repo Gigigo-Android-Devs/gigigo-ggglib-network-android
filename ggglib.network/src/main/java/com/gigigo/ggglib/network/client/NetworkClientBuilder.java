@@ -1,13 +1,13 @@
 package com.gigigo.ggglib.network.client;
 
-import okhttp3.Interceptor;
-import retrofit2.Converter;
+import com.gigigo.ggglib.network.converters.ResponseConverter;
+import com.gigigo.ggglib.network.interceptors.NetworkInterceptor;
 
 /**
  * Created by rui.alonso on 28/3/17.
  */
 
-public interface NetworkClientBuilder {
+public interface NetworkClientBuilder<Interceptor extends NetworkInterceptor, Converter extends ResponseConverter> {
 
   NetworkClientBuilder connectTimeout(int seconds);
 
@@ -19,7 +19,7 @@ public interface NetworkClientBuilder {
 
   NetworkClientBuilder loggingInterceptor(Interceptor loggingInterceptor);
 
-  NetworkClientBuilder converterFactory(Converter.Factory converterFactory);
+  NetworkClientBuilder converterFactory(Converter converterFactory);
 
   NetworkClient build();
 }

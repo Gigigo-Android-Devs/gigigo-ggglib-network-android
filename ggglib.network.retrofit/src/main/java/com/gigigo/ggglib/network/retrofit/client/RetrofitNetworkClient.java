@@ -7,20 +7,20 @@ import retrofit2.Retrofit;
  * Created by rui.alonso on 31/3/17.
  */
 
-public class RetrofitNetworkClient<ApiClient> extends NetworkClient {
+public class RetrofitNetworkClient<ApiClient> implements NetworkClient<ApiClient> {
   private Retrofit retrofit;
   private ApiClient apiClient;
 
-  public RetrofitNetworkClient(Retrofit retrofit, Class apiClientClass) {
+  public RetrofitNetworkClient(Retrofit retrofit, Class<ApiClient> apiClientClass) {
     this.retrofit = retrofit;
-    this.apiClient = (ApiClient) this.retrofit.create(apiClientClass);
+    this.apiClient = this.retrofit.create(apiClientClass);
   }
 
   public Retrofit getRetrofit() {
     return this.retrofit;
   }
 
-  public ApiClient getApiClient() {
+  @Override public ApiClient getApiClient() {
     return this.apiClient;
   }
 }
