@@ -2,13 +2,10 @@ package com.gigigo.ggglib.network.retrofit.context.responses;
 
 import com.google.gson.annotations.SerializedName;
 
-
 public class ApiErrorResponseMock {
 
-  @SerializedName("code")
-  private int code;
-  @SerializedName("message")
-  private String message;
+  @SerializedName("code") private int code;
+  @SerializedName("message") private String message;
 
   public ApiErrorResponseMock(int code, String message) {
     this.code = code;

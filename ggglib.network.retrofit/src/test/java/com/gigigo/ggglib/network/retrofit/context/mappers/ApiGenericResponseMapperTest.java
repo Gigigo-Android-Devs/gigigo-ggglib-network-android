@@ -72,7 +72,7 @@ public class ApiGenericResponseMapperTest {
     HttpResponse httpResponse = new HttpResponse(200, "OK");
 
     ApiResponseMock mockApiResponse = new ApiResponseMock();
-    mockApiResponse.setData(apiDataTestMock);
+    mockApiResponse.setResult(apiDataTestMock);
     mockApiResponse.setHttpResponse(httpResponse);
 
     return mockApiResponse;

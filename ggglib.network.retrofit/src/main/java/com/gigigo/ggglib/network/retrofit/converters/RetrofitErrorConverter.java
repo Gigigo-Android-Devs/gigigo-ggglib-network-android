@@ -29,8 +29,8 @@ public class RetrofitErrorConverter<ErrorResponse>
 
   private Converter<ResponseBody, ErrorResponse> converter;
 
-  public RetrofitErrorConverter(Retrofit retrofit, Class<ErrorResponse> errorResponse) {
-    converter = retrofit.responseBodyConverter(errorResponse, new Annotation[0]);
+  public RetrofitErrorConverter(Retrofit retrofit, Class<ErrorResponse> errorResponseType) {
+    converter = retrofit.responseBodyConverter(errorResponseType, new Annotation[0]);
   }
 
   @Override public ErrorResponse convert(ResponseBody value) throws IOException {

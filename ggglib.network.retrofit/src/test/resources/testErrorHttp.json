@@ -1,5 +1,8 @@
 {
   "status": false,
+  "data": {
+    "test": "Hello World"
+  },
   "error": {
     "message": "Error.",
     "code": 500

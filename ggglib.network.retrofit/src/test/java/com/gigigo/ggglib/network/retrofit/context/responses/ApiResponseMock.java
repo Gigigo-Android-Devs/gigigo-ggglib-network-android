@@ -2,8 +2,7 @@ package com.gigigo.ggglib.network.retrofit.context.responses;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ApiResponseMock
-    implements ApiGenericResponse<ApiDataTestMock, ApiErrorResponseMock> {
+public class ApiResponseMock implements ApiGenericResponse<ApiDataTestMock, ApiErrorResponseMock> {
 
   @SerializedName("status") private String status;
   @SerializedName("data") private ApiDataTestMock data;
@@ -33,14 +32,6 @@ public class ApiResponseMock
 
   @Override public boolean isException() {
     return false;
-  }
-
-  public ApiDataTestMock getData() {
-    return data;
-  }
-
-  public void setData(ApiDataTestMock data) {
-    this.data = data;
   }
 
   @Override public ApiDataTestMock getResult() {

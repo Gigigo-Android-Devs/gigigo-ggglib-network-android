@@ -68,10 +68,10 @@ public class RetrofitNetworkExecutor implements NetworkExecutor<Call<ApiGenericR
     return apiResponse;
   }
 
-  private ApiGenericResponse parseRetrofitResponseToApi(
-      Response<ApiGenericResponse> retrofitResponse) throws IOException {
+  private <ApiResponse extends ApiGenericResponse> ApiGenericResponse parseRetrofitResponseToApi(
+      Response<ApiResponse> retrofitResponse) throws IOException {
 
-    ApiGenericResponse apiResponse;
+    ApiResponse apiResponse;
 
     if (retrofitResponse.isSuccessful()) {
       apiResponse = retrofitResponse.body();
@@ -84,9 +84,9 @@ public class RetrofitNetworkExecutor implements NetworkExecutor<Call<ApiGenericR
     return apiResponse;
   }
 
-  private ApiGenericResponse buildApiErrorResponse(
-      Response<ApiGenericResponse> retrofitResponse) throws IOException {
-    return (ApiGenericResponse) errorConverter.convert(retrofitResponse.errorBody());
+  private <ApiResponse extends ApiGenericResponse> ApiResponse buildApiErrorResponse(Response<ApiResponse> retrofitResponse)
+      throws IOException {
+    return (ApiResponse) errorConverter.convert(retrofitResponse.errorBody());
   }
 
   private boolean shouldRetry(int tries, ApiGenericResponse apiGenericResponse, boolean success,
