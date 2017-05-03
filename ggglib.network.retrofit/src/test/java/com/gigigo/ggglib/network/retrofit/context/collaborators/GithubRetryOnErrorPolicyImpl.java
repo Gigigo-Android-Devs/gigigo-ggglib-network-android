@@ -1,10 +1,10 @@
 package com.gigigo.ggglib.network.retrofit.context.collaborators;
 
-import com.gigigo.ggglib.network.responses.GithubErrorData;
+import com.gigigo.ggglib.network.responses.GitHubErrorData;
 import com.gigigo.ggglib.network.defaultelements.RetryOnErrorPolicy;
 import com.gigigo.ggglib.network.responses.HttpResponse;
 
-public class GithubRetryOnErrorPolicyImpl implements RetryOnErrorPolicy<GithubErrorData> {
+public class GithubRetryOnErrorPolicyImpl implements RetryOnErrorPolicy<GitHubErrorData> {
 
   /**
    * The aim of this method is implement the desired policy and implement a switch case strategy
@@ -16,7 +16,7 @@ public class GithubRetryOnErrorPolicyImpl implements RetryOnErrorPolicy<GithubEr
    * @param httpResponse full http response of error
    * @return
    */
-  @Override public boolean shouldRetryWithErrorAndTries(int tries, GithubErrorData error,
+  @Override public boolean shouldRetryWithErrorAndTries(int tries, GitHubErrorData error,
       HttpResponse httpResponse) {
     return false;
   }

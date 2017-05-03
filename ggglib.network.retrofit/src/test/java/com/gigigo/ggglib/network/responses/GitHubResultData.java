@@ -1,18 +1,20 @@
 package com.gigigo.ggglib.network.responses;
 
-public class GithubDataResponse {
+import com.google.gson.annotations.SerializedName;
 
-  private String login;
+public class GitHubResultData {
 
-  private Integer id;
+  @SerializedName("login") private String login;
 
-  private String avatarUrl;
+  @SerializedName("id") private Integer id;
 
-  private String name;
+  @SerializedName("avatar_url") private String avatarUrl;
 
-  private String email;
+  @SerializedName("name") private String name;
 
-  private Object bio;
+  @SerializedName("email") private String email;
+
+  @SerializedName("bio") private Object bio;
 
   public String getLogin() {
     return login;

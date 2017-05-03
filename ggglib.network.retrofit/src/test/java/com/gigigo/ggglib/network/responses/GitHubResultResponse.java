@@ -2,8 +2,9 @@ package com.gigigo.ggglib.network.responses;
 
 import com.google.gson.annotations.SerializedName;
 
-public class GithubResultResponse
-    extends ApiGenericResponse<GithubResultResponse,GithubErrorResponse> {
+public class GitHubResultResponse extends ApiGenericResultResponse<GitHubResultData> {
+
+  private GitHubResultData gitHubResultData;
 
   @SerializedName("login") private String login;
 
@@ -65,47 +66,25 @@ public class GithubResultResponse
     this.bio = bio;
   }
 
-  @Override public GithubResultResponse getResult() {
-    return this;
+  @Override public GitHubResultData getResult() {
+    if(this.gitHubResultData == null) {
+      this.gitHubResultData = new GitHubResultData();
+      this.gitHubResultData.setAvatarUrl(this.avatarUrl);
+      this.gitHubResultData.setBio(this.bio);
+      this.gitHubResultData.setLogin(this.login);
+      this.gitHubResultData.setId(this.id);
+      this.gitHubResultData.setEmail(this.email);
+      this.gitHubResultData.setName(this.name);
+    }
+    return this.gitHubResultData;
   }
 
-  @Override public GithubErrorResponse getError() {
-    return null;
-  }
-
-  public void setResult(GithubResultResponse githubResultResponse) {
-    this.avatarUrl = githubResultResponse.avatarUrl;
-    this.bio = githubResultResponse.bio;
-    this.login = githubResultResponse.login;
-    this.id = githubResultResponse.id;
-    this.email = githubResultResponse.email;
-    this.name = githubResultResponse.name;
-  }
-
-  @Override public ApiResponseStatus getResponseStatus() {
-    return ApiResponseStatus.OK;
-  }
-
-  @Override public String toString() {
-    return "GitHubResponse{"
-        + "login='"
-        + login
-        + '\''
-        + ", id="
-        + id
-        + ", avatarUrl='"
-        + avatarUrl
-        + '\''
-        + ", name='"
-        + name
-        + '\''
-        + ", email='"
-        + email
-        + '\''
-        + ", bio="
-        + bio
-        + ", httpResponse="
-        + httpResponse
-        + '}';
+  @Override public void setResult(GitHubResultData gitHubResultData) {
+    this.avatarUrl = gitHubResultData.getAvatarUrl();
+    this.bio = gitHubResultData.getBio();
+    this.login = gitHubResultData.getLogin();
+    this.id = gitHubResultData.getId();
+    this.email = gitHubResultData.getEmail();
+    this.name = gitHubResultData.getName();
   }
 }
