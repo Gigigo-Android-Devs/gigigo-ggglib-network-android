@@ -6,10 +6,10 @@ import com.gigigo.ggglib.mappers.ExternalClassToModelMapper;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiErrorDataMock;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericExceptionResponse;
 
-public class BaseTestApiResponseMapper<Model, Data>
+public class BaseApiResponseMapper<Model, Data>
     extends ApiGenericResponseMapper<Model, Data, ApiErrorDataMock> {
 
-  public BaseTestApiResponseMapper(ExternalClassToModelMapper<Model, Data> mapper) {
+  public BaseApiResponseMapper(ExternalClassToModelMapper<Model, Data> mapper) {
     super(mapper);
   }
 

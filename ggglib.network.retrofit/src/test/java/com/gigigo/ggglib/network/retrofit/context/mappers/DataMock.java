@@ -1,6 +1,6 @@
 package com.gigigo.ggglib.network.retrofit.context.mappers;
 
-public class DataTestMock {
+public class DataMock {
 
   private String test;
 

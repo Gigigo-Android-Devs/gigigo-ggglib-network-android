@@ -25,7 +25,7 @@ public class ApiGenericResponseMapperTest {
   @Before public void setUp() {
 
     apiServiceExecutor = Mockito.mock(NetworkExecutor.class);
-    apiGenericResponseMapper = new BaseTestApiResponseMapper(new TestMapper());
+    apiGenericResponseMapper = new BaseApiResponseMapper(new MapperTest());
 
     when(apiServiceExecutor.call("ok")).thenReturn(mockApiResponseOkClass());
 
@@ -37,7 +37,7 @@ public class ApiGenericResponseMapperTest {
   @Test public void mapperOkResultTest() throws Exception {
     ApiGenericResponse apiGenericResponse = apiServiceExecutor.call("ok");
 
-    BusinessObject<DataTestMock> bo =
+    BusinessObject<DataMock> bo =
         apiGenericResponseMapper.mapApiGenericResponseToBusiness(apiGenericResponse);
 
     assertEquals(bo.getBusinessError().getBusinessContentType(),
@@ -48,7 +48,7 @@ public class ApiGenericResponseMapperTest {
   @Test public void mapperErrorResultTest() throws Exception {
     ApiGenericResponse apiGenericResponse = apiServiceExecutor.call("error");
 
-    BusinessObject<DataTestMock> bo =
+    BusinessObject<DataMock> bo =
         apiGenericResponseMapper.mapApiGenericResponseToBusiness(apiGenericResponse);
 
     assertEquals(bo.getBusinessError().getBusinessContentType(),
@@ -59,7 +59,7 @@ public class ApiGenericResponseMapperTest {
   @Test public void mapperBadResultTest() throws Exception {
     ApiGenericResponse apiGenericResponse = apiServiceExecutor.call("bad");
 
-    BusinessObject<DataTestMock> bo =
+    BusinessObject<DataMock> bo =
         apiGenericResponseMapper.mapApiGenericResponseToBusiness(apiGenericResponse);
 
     assertEquals(bo.getBusinessError().getBusinessContentType(),
