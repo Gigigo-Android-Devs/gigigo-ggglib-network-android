@@ -17,7 +17,7 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gigigo.ggglib.network_retrofit"
+    package="com.gigigo.ggglib.network.retrofit"
     >
 
   <application
