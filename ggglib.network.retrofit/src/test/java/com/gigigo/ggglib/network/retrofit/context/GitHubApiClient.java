@@ -1,6 +1,6 @@
 package com.gigigo.ggglib.network.retrofit.context;
 
-import com.gigigo.ggglib.network.retrofit.context.responses.GithubResultResponse;
+import com.gigigo.ggglib.network.responses.GithubResultResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 

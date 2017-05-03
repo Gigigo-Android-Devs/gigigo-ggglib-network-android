@@ -18,7 +18,7 @@
 
 package com.gigigo.ggglib.network.retrofit.converters;
 
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericResponse;
+import com.gigigo.ggglib.network.responses.ApiGenericResponse;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import okhttp3.ResponseBody;

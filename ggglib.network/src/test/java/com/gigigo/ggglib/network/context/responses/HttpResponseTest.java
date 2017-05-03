@@ -1,6 +1,6 @@
 package com.gigigo.ggglib.network.context.responses;
 
-import com.gigigo.ggglib.network.retrofit.context.responses.HttpResponse;
+import com.gigigo.ggglib.network.responses.HttpResponse;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;

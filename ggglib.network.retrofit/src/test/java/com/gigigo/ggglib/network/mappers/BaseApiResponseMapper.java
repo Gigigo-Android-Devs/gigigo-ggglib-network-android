@@ -1,10 +1,10 @@
-package com.gigigo.ggglib.network.retrofit.context.mappers;
+package com.gigigo.ggglib.network.mappers;
 
 import com.gigigo.ggglib.core.business.model.BusinessContentType;
 import com.gigigo.ggglib.core.business.model.BusinessError;
 import com.gigigo.ggglib.mappers.ExternalClassToModelMapper;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiErrorDataMock;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericExceptionResponse;
+import com.gigigo.ggglib.network.responses.ApiErrorDataMock;
+import com.gigigo.ggglib.network.responses.ApiGenericExceptionResponse;
 
 public class BaseApiResponseMapper<Model, Data>
     extends ApiGenericResponseMapper<Model, Data, ApiErrorDataMock> {

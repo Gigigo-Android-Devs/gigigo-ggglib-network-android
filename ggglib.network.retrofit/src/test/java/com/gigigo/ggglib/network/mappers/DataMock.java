@@ -1,4 +1,4 @@
-package com.gigigo.ggglib.network.retrofit.context.mappers;
+package com.gigigo.ggglib.network.mappers;
 
 public class DataMock {
 

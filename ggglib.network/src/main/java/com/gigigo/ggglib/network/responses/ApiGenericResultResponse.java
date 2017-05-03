@@ -16,19 +16,19 @@
  * limitations under the License.
  */
 
-package com.gigigo.ggglib.network.retrofit.context.responses;
+package com.gigigo.ggglib.network.responses;
 
-public abstract class ApiGenericErrorResponse<Error> extends ApiGenericResponse<Object, Error> {
+public abstract class ApiGenericResultResponse<Result> extends ApiGenericResponse<Result, Object> {
 
-  @Override public Object getResult() {
+  public abstract Result getResult();
+
+  public abstract void setResult(Result result);
+
+  @Override public Object getError() {
     return null;
   }
 
-  public abstract Error getError();
-
-  public abstract void setError(Error error);
-
-  public ApiResponseStatus getResponseStatus() {
-    return ApiResponseStatus.ERROR;
+  @Override public ApiResponseStatus getResponseStatus() {
+    return ApiResponseStatus.OK;
   }
 }

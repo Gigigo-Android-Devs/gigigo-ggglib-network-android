@@ -1,7 +1,7 @@
 package com.gigigo.ggglib.network.retry;
 
 import com.gigigo.ggglib.network.defaultelements.RetryOnErrorPolicy;
-import com.gigigo.ggglib.network.retrofit.context.responses.HttpResponse;
+import com.gigigo.ggglib.network.responses.HttpResponse;
 
 public class DefaultRetryOnErrorPolicyImpl<Error> implements RetryOnErrorPolicy<Error> {
 

@@ -16,14 +16,14 @@
  * limitations under the License.
  */
 
-package com.gigigo.ggglib.network.retrofit.context.mappers;
+package com.gigigo.ggglib.network.mappers;
 
 import com.gigigo.ggglib.core.business.model.BusinessContentType;
 import com.gigigo.ggglib.core.business.model.BusinessError;
 import com.gigigo.ggglib.core.business.model.BusinessObject;
 import com.gigigo.ggglib.mappers.ExternalClassToModelMapper;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericExceptionResponse;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericResponse;
+import com.gigigo.ggglib.network.responses.ApiGenericExceptionResponse;
+import com.gigigo.ggglib.network.responses.ApiGenericResponse;
 
 public abstract class ApiGenericResponseMapper<ModelData, ApiResponseData, ApiBusinessError> {
 

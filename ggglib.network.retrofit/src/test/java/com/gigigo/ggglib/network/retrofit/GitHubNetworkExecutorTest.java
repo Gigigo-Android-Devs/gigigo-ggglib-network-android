@@ -1,6 +1,6 @@
 package com.gigigo.ggglib.network.retrofit;
 
-import com.gigigo.ggglib.network.retrofit.context.responses.utils.ResponseUtils;
+import com.gigigo.ggglib.network.responses.utils.ResponseUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

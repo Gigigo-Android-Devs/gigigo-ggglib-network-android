@@ -1,6 +1,6 @@
 package com.gigigo.ggglib.network.context.responses;
 
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericExceptionResponse;
+import com.gigigo.ggglib.network.responses.ApiGenericExceptionResponse;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;

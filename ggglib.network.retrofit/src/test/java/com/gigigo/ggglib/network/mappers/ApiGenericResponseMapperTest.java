@@ -1,15 +1,15 @@
-package com.gigigo.ggglib.network.retrofit.context.mappers;
+package com.gigigo.ggglib.network.mappers;
 
 import com.gigigo.ggglib.core.business.model.BusinessContentType;
 import com.gigigo.ggglib.core.business.model.BusinessObject;
 import com.gigigo.ggglib.network.executors.NetworkExecutor;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiErrorResponseMock;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiResultDataMock;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiErrorDataMock;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericExceptionResponse;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericResponse;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiResultResponseMock;
-import com.gigigo.ggglib.network.retrofit.context.responses.HttpResponse;
+import com.gigigo.ggglib.network.responses.ApiErrorResponseMock;
+import com.gigigo.ggglib.network.responses.ApiResultDataMock;
+import com.gigigo.ggglib.network.responses.ApiErrorDataMock;
+import com.gigigo.ggglib.network.responses.ApiGenericExceptionResponse;
+import com.gigigo.ggglib.network.responses.ApiGenericResponse;
+import com.gigigo.ggglib.network.responses.ApiResultResponseMock;
+import com.gigigo.ggglib.network.responses.HttpResponse;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

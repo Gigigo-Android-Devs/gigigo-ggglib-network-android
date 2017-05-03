@@ -1,6 +1,4 @@
-package com.gigigo.ggglib.network.retrofit.context.responses;
-
-import com.google.gson.annotations.SerializedName;
+package com.gigigo.ggglib.network.responses;
 
 public class GithubDataResponse {
 

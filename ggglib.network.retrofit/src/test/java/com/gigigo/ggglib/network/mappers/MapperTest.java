@@ -1,7 +1,7 @@
-package com.gigigo.ggglib.network.retrofit.context.mappers;
+package com.gigigo.ggglib.network.mappers;
 
 import com.gigigo.ggglib.mappers.ExternalClassToModelMapper;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiResultDataMock;
+import com.gigigo.ggglib.network.responses.ApiResultDataMock;
 
 public class MapperTest implements ExternalClassToModelMapper<ApiResultDataMock, DataMock> {
 

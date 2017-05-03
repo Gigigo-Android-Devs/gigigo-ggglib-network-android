@@ -18,7 +18,7 @@
 
 package com.gigigo.ggglib.network.converters;
 
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericResponse;
+import com.gigigo.ggglib.network.responses.ApiGenericResponse;
 import java.io.IOException;
 
 public interface ErrorConverter<ResponseBody> {

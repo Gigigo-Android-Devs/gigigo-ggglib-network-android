@@ -1,4 +1,4 @@
-package com.gigigo.ggglib.network.retrofit.context.responses;
+package com.gigigo.ggglib.network.responses;
 
 public class GithubErrorResponse extends ApiGenericErrorResponse<GithubErrorData> {
 

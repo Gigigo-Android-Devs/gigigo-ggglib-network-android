@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.gigigo.ggglib.network.retrofit.context.responses;
+package com.gigigo.ggglib.network.responses;
 
 public class ApiGenericExceptionResponse extends ApiGenericResponse<Object, Exception> {
 

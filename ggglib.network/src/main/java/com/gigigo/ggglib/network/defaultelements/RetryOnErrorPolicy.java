@@ -18,7 +18,7 @@
 
 package com.gigigo.ggglib.network.defaultelements;
 
-import com.gigigo.ggglib.network.retrofit.context.responses.HttpResponse;
+import com.gigigo.ggglib.network.responses.HttpResponse;
 
 public interface RetryOnErrorPolicy<Error> {
 

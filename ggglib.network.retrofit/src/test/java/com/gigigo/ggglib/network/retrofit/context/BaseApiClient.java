@@ -1,6 +1,6 @@
 package com.gigigo.ggglib.network.retrofit.context;
 
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiResultResponseMock;
+import com.gigigo.ggglib.network.responses.ApiResultResponseMock;
 import retrofit2.Call;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
