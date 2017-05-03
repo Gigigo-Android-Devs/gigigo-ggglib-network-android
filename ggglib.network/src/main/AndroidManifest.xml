@@ -20,7 +20,7 @@
     package="com.gigigo.ggglib.network"
     >
 
-    <application
+  <application
       android:allowBackup="true"
       android:supportsRtl="true"
       >
