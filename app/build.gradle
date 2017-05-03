@@ -23,6 +23,7 @@ android {
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
   compile parent.ext.libraries.androidSupportV7
+  compile parent.ext.libraries.gggLibNetworkRetrofit
 
   testCompile parent.ext.testLibraries.junit
 }
