@@ -12,7 +12,7 @@ public class HttpResponseTest {
 
     Exception e = new Exception("Hello Exception World");
 
-    HttpResponse httpResponse = HttpResponse.getHttpResponseExceptionInstance(-222, e);
+    HttpResponse httpResponse = HttpResponse.getHttpResponseExceptionInstance(-222, e.getLocalizedMessage());
 
     assertNotNull(httpResponse);
     assertEquals(httpResponse.getHttpStatus(), -222);

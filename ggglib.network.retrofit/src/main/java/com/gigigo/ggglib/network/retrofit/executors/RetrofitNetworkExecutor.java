@@ -23,6 +23,7 @@ import com.gigigo.ggglib.logger.LogLevel;
 import com.gigigo.ggglib.network.converters.ErrorConverter;
 import com.gigigo.ggglib.network.defaultelements.RetryOnErrorPolicy;
 import com.gigigo.ggglib.network.executors.NetworkExecutor;
+import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericErrorResponse;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericExceptionResponse;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericResponse;
 import com.gigigo.ggglib.network.retrofit.context.responses.HttpResponse;
@@ -59,7 +60,7 @@ public class RetrofitNetworkExecutor implements NetworkExecutor<Call<ApiGenericR
         apiResponse = parseRetrofitResponseToApi(retrofitResponse);
       } catch (Exception e) {
         exception = e;
-        apiResponse = ApiGenericExceptionResponse.getApiGenericExceptionResponseInstance(e);
+        apiResponse = buildApiExceptionResponse(e);
 
         GGGLogImpl.log(e.getMessage(), LogLevel.ERROR);
       }
@@ -71,7 +72,7 @@ public class RetrofitNetworkExecutor implements NetworkExecutor<Call<ApiGenericR
   private <ApiResponse extends ApiGenericResponse> ApiGenericResponse parseRetrofitResponseToApi(
       Response<ApiResponse> retrofitResponse) throws IOException {
 
-    ApiResponse apiResponse;
+    ApiGenericResponse apiResponse;
 
     if (retrofitResponse.isSuccessful()) {
       apiResponse = retrofitResponse.body();
@@ -84,9 +85,15 @@ public class RetrofitNetworkExecutor implements NetworkExecutor<Call<ApiGenericR
     return apiResponse;
   }
 
-  private <ApiResponse extends ApiGenericResponse> ApiResponse buildApiErrorResponse(Response<ApiResponse> retrofitResponse)
-      throws IOException {
-    return (ApiResponse) errorConverter.convert(retrofitResponse.errorBody());
+  private <ApiResponse extends ApiGenericResponse> ApiGenericResponse buildApiErrorResponse(
+      Response<ApiResponse> retrofitResponse) throws IOException {
+
+    return errorConverter.convert(retrofitResponse.errorBody());
+  }
+
+  private ApiGenericResponse buildApiExceptionResponse(Exception exception) {
+
+    return ApiGenericExceptionResponse.getApiGenericExceptionResponseInstance(exception);
   }
 
   private boolean shouldRetry(int tries, ApiGenericResponse apiGenericResponse, boolean success,
@@ -103,12 +110,12 @@ public class RetrofitNetworkExecutor implements NetworkExecutor<Call<ApiGenericR
     if (e != null) {
       return exceptionRetryPolicyResult(tries, e);
     } else {
-      return businessErrorRetryPolicyResult(tries, apiResponse);
+      return businessErrorRetryPolicyResult(tries, (ApiGenericErrorResponse) apiResponse);
     }
   }
 
-  private boolean businessErrorRetryPolicyResult(int tries, ApiGenericResponse apiResponse) {
-    Object businessResponse = apiResponse.getBusinessError();
+  private boolean businessErrorRetryPolicyResult(int tries, ApiGenericErrorResponse apiResponse) {
+    Object businessResponse = apiResponse.getError();
     HttpResponse httpResponse = apiResponse.getHttpResponse();
     return retryOnErrorPolicy.shouldRetryWithErrorAndTries(tries, businessResponse, httpResponse);
   }

@@ -3,11 +3,12 @@ package com.gigigo.ggglib.network.retrofit.context.mappers;
 import com.gigigo.ggglib.core.business.model.BusinessContentType;
 import com.gigigo.ggglib.core.business.model.BusinessObject;
 import com.gigigo.ggglib.network.executors.NetworkExecutor;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiDataTestMock;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiErrorResponseMock;
+import com.gigigo.ggglib.network.retrofit.context.responses.ApiResultDataMock;
+import com.gigigo.ggglib.network.retrofit.context.responses.ApiErrorDataMock;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericExceptionResponse;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericResponse;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiResponseMock;
+import com.gigigo.ggglib.network.retrofit.context.responses.ApiResultResponseMock;
 import com.gigigo.ggglib.network.retrofit.context.responses.HttpResponse;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,24 +67,24 @@ public class ApiGenericResponseMapperTest {
   }
 
   private ApiGenericResponse mockApiResponseOkClass() {
-    ApiDataTestMock apiDataTestMock = new ApiDataTestMock();
-    apiDataTestMock.setTest("Hello World");
+    ApiResultDataMock apiResultDataMock = new ApiResultDataMock();
+    apiResultDataMock.setTest("Hello World");
 
     HttpResponse httpResponse = new HttpResponse(200, "OK");
 
-    ApiResponseMock mockApiResponse = new ApiResponseMock();
-    mockApiResponse.setResult(apiDataTestMock);
+    ApiResultResponseMock mockApiResponse = new ApiResultResponseMock();
+    mockApiResponse.setResult(apiResultDataMock);
     mockApiResponse.setHttpResponse(httpResponse);
 
     return mockApiResponse;
   }
 
   private ApiGenericResponse mockApiResponseBusinessErrorClass() {
-    ApiErrorResponseMock apiErrorResponseMock = new ApiErrorResponseMock(1550, "bad User");
+    ApiErrorDataMock apiErrorDataMock = new ApiErrorDataMock(1550, "bad User");
     HttpResponse httpResponse = new HttpResponse(500, "KO");
 
-    ApiResponseMock mockApiResponse = new ApiResponseMock();
-    mockApiResponse.setBusinessError(apiErrorResponseMock);
+    ApiErrorResponseMock mockApiResponse = new ApiErrorResponseMock();
+    mockApiResponse.setError(apiErrorDataMock);
     mockApiResponse.setHttpResponse(httpResponse);
 
     return mockApiResponse;

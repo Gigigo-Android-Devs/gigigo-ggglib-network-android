@@ -2,7 +2,8 @@ package com.gigigo.ggglib.network.retrofit.context.responses;
 
 import com.google.gson.annotations.SerializedName;
 
-public class GitHubResponse implements ApiGenericResponse<GitHubResponse, GitHubErrorResponse> {
+public class GithubResultResponse
+    extends ApiGenericResponse<GithubResultResponse,GithubErrorResponse> {
 
   @SerializedName("login") private String login;
 
@@ -15,16 +16,6 @@ public class GitHubResponse implements ApiGenericResponse<GitHubResponse, GitHub
   @SerializedName("email") private String email;
 
   @SerializedName("bio") private Object bio;
-
-  private HttpResponse httpResponse;
-
-  @Override public HttpResponse getHttpResponse() {
-    return httpResponse;
-  }
-
-  @Override public void setHttpResponse(HttpResponse httpResponse) {
-    this.httpResponse = httpResponse;
-  }
 
   public String getLogin() {
     return login;
@@ -74,29 +65,25 @@ public class GitHubResponse implements ApiGenericResponse<GitHubResponse, GitHub
     this.bio = bio;
   }
 
-  @Override public GitHubResponse getResult() {
+  @Override public GithubResultResponse getResult() {
     return this;
   }
 
-  @Override public void setResult(GitHubResponse gitHubResponse) {
-    this.avatarUrl = gitHubResponse.avatarUrl;
-    this.bio = gitHubResponse.bio;
-    this.login = gitHubResponse.login;
-    this.id = gitHubResponse.id;
-    this.email = gitHubResponse.email;
-    this.name = gitHubResponse.name;
-  }
-
-  @Override public GitHubErrorResponse getBusinessError() {
+  @Override public GithubErrorResponse getError() {
     return null;
   }
 
-  @Override public void setBusinessError(GitHubErrorResponse businessError) {
-
+  public void setResult(GithubResultResponse githubResultResponse) {
+    this.avatarUrl = githubResultResponse.avatarUrl;
+    this.bio = githubResultResponse.bio;
+    this.login = githubResultResponse.login;
+    this.id = githubResultResponse.id;
+    this.email = githubResultResponse.email;
+    this.name = githubResultResponse.name;
   }
 
-  @Override public boolean isException() {
-    return false;
+  @Override public ApiResponseStatus getResponseStatus() {
+    return ApiResponseStatus.OK;
   }
 
   @Override public String toString() {

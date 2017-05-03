@@ -7,11 +7,11 @@ import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
 public class DefaultErrorConverterImpl<ErrorResponse extends ApiGenericResponse>
-    implements ErrorConverter<ErrorResponse, ResponseBody> {
+    implements ErrorConverter<ResponseBody> {
 
   RetrofitErrorConverter retrofitErrorConverter;
 
-  public DefaultErrorConverterImpl(Retrofit retrofit, Class<ErrorResponse> errorResponse) {
+  public DefaultErrorConverterImpl(Retrofit retrofit, Class<ApiGenericResponse> errorResponse) {
     this.retrofitErrorConverter = new RetrofitErrorConverter(retrofit, errorResponse);
   }
 

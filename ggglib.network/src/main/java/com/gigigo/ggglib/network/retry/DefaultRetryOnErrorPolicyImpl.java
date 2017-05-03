@@ -1,10 +1,9 @@
 package com.gigigo.ggglib.network.retry;
 
 import com.gigigo.ggglib.network.defaultelements.RetryOnErrorPolicy;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericResponse;
 import com.gigigo.ggglib.network.retrofit.context.responses.HttpResponse;
 
-public class DefaultRetryOnErrorPolicyImpl implements RetryOnErrorPolicy<ApiGenericResponse> {
+public class DefaultRetryOnErrorPolicyImpl<Error> implements RetryOnErrorPolicy<Error> {
 
   /**
    * The aim of this method is implement the desired policy and implement a switch case strategy
@@ -15,7 +14,7 @@ public class DefaultRetryOnErrorPolicyImpl implements RetryOnErrorPolicy<ApiGene
    * @param error error description
    * @param httpResponse full http response of error
    */
-  @Override public boolean shouldRetryWithErrorAndTries(int tries, ApiGenericResponse error,
+  @Override public boolean shouldRetryWithErrorAndTries(int tries, Error error,
       HttpResponse httpResponse) {
     return false;
   }

@@ -18,32 +18,6 @@
 
 package com.gigigo.ggglib.network.retrofit.context.responses;
 
-public class HttpResponse {
-  private int httpStatus;
-  private String statusMessage;
-
-  public HttpResponse(int httpStatus, String statusMessage) {
-    this.httpStatus = httpStatus;
-    this.statusMessage = statusMessage;
-  }
-
-  public static HttpResponse getHttpResponseExceptionInstance(int code, String statusMessage) {
-    return new HttpResponse(code, statusMessage);
-  }
-
-  public int getHttpStatus() {
-    return httpStatus;
-  }
-
-  public void setHttpStatus(int httpStatus) {
-    this.httpStatus = httpStatus;
-  }
-
-  public String getStatusMessage() {
-    return statusMessage;
-  }
-
-  public void setStatusMessage(String statusMessage) {
-    this.statusMessage = statusMessage;
-  }
+public enum ApiResponseStatus {
+  OK, EXCEPTION, ERROR
 }

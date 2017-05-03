@@ -2,10 +2,10 @@ package com.gigigo.ggglib.network.retrofit.context.responses;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ApiErrorResponseMock extends ApiGenericErrorResponse<ApiErrorDataMock> {
+public class ApiResultResponseMock extends ApiGenericResultResponse<ApiResultDataMock> {
 
   @SerializedName("status") private String status;
-  @SerializedName("error") private ApiErrorDataMock error;
+  @SerializedName("data") private ApiResultDataMock data;
 
   public String getStatus() {
     return status;
@@ -15,11 +15,11 @@ public class ApiErrorResponseMock extends ApiGenericErrorResponse<ApiErrorDataMo
     this.status = status;
   }
 
-  @Override public ApiErrorDataMock getError() {
-    return this.error;
+  @Override public ApiResultDataMock getResult() {
+    return this.data;
   }
 
-  @Override public void setError(ApiErrorDataMock error) {
-    this.error = error;
+  @Override public void setResult(ApiResultDataMock data) {
+    this.data = data;
   }
 }

@@ -17,10 +17,10 @@ public class ApiGenericExceptionResponseTest {
         ApiGenericExceptionResponse.getApiGenericExceptionResponseInstance(e);
 
     assertNotNull(apiGenericExceptionResponse);
-    assertNotNull(apiGenericExceptionResponse.getBusinessError());
+    assertNotNull(apiGenericExceptionResponse.getError());
     assertNotNull(apiGenericExceptionResponse.getHttpResponse());
     assertNull(apiGenericExceptionResponse.getResult());
-    assertEquals(apiGenericExceptionResponse.getBusinessError().getMessage(),
+    assertEquals(apiGenericExceptionResponse.getError().getMessage(),
         "Hello Exception World");
   }
 }

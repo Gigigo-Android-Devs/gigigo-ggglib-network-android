@@ -24,7 +24,7 @@ import com.gigigo.ggglib.core.business.model.BusinessObject;
 import com.gigigo.ggglib.mappers.ExternalClassToModelMapper;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericExceptionResponse;
 import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericResponse;
-
+import com.gigigo.ggglib.network.retrofit.context.responses.ApiResponseStatus;
 
 public abstract class ApiGenericResponseMapper<ModelData, ApiResponseData, ApiBusinessError> {
 
@@ -34,50 +34,62 @@ public abstract class ApiGenericResponseMapper<ModelData, ApiResponseData, ApiBu
     this.mapper = mapper;
   }
 
-  public <ApiResponse extends ApiGenericResponse> BusinessObject mapApiGenericResponseToBusiness
-      (ApiResponse apiResponse){
+  public <ApiResponse extends ApiGenericResponse> BusinessObject mapApiGenericResponseToBusiness(
+      ApiResponse apiResponse) {
 
-    if (apiResponse.getResult()!=null && apiResponse.getBusinessError()==null){
-      return createSuccessfulResponseBusinessObject(apiResponse);
-    }else if(apiResponse.getBusinessError()!=null){
-      return createErrorResponseBusinessObject(apiResponse);
-    }else{
-      return createEmptyOkResponseBusinessObject(apiResponse);
+    BusinessObject response;
+    switch (apiResponse.getResponseStatus()) {
+      case OK:
+        response = createSuccessfulResponseBusinessObject(apiResponse);
+        break;
+      case ERROR:
+      case EXCEPTION:
+        response = createErrorResponseBusinessObject(apiResponse);
+        break;
+      default:
+        response = createEmptyOkResponseBusinessObject(apiResponse);
+        break;
     }
 
+    return response;
   }
 
-  protected <ApiResponse extends ApiGenericResponse> BusinessObject
-  createEmptyOkResponseBusinessObject(ApiResponse apiResponse){
+  protected <ApiResponse extends ApiGenericResponse> BusinessObject createEmptyOkResponseBusinessObject(
+      ApiResponse apiResponse) {
     return new BusinessObject<>(null, createCleanBusinessError());
   }
 
-  private <ApiResponse extends ApiGenericResponse> BusinessObject
-  createSuccessfulResponseBusinessObject(ApiResponse apiResponse) {
+  private <ApiResponse extends ApiGenericResponse> BusinessObject createSuccessfulResponseBusinessObject(
+      ApiResponse apiResponse) {
 
     ModelData data = mapper.externalClassToModel((ApiResponseData) apiResponse.getResult());
     return new BusinessObject<>(data, createCleanBusinessError());
   }
 
-  private <ApiResponse extends ApiGenericResponse> BusinessObject
-  createErrorResponseBusinessObject(ApiResponse apiResponse) {
+  private <ApiResponse extends ApiGenericResponse> BusinessObject createErrorResponseBusinessObject(
+      ApiResponse apiResponse) {
 
-    if (apiResponse.isException()){
-      return createExceptionErrorResponseBusinessObject((ApiGenericExceptionResponse) apiResponse);
-    }else{
-      return createBusinessErrorResponseBusinessResponse(apiResponse);
+    BusinessObject responseError;
+
+    if (apiResponse.getResponseStatus() == ApiResponseStatus.EXCEPTION) {
+      responseError = createExceptionErrorResponseBusinessObject((ApiGenericExceptionResponse) apiResponse);
     }
+    else {
+      responseError = createBusinessErrorResponseBusinessResponse(apiResponse);
+    }
+
+    return responseError;
   }
 
-  private <ApiResponse extends ApiGenericResponse> BusinessObject
-  createBusinessErrorResponseBusinessResponse(ApiResponse apiResponse) {
-    BusinessError businessError = createBusinessError(
-        (ApiBusinessError) apiResponse.getBusinessError(), (ApiResponseData) apiResponse.getResult());
+  private <ApiResponse extends ApiGenericResponse> BusinessObject createBusinessErrorResponseBusinessResponse(
+      ApiResponse apiResponse) {
+    BusinessError businessError = createBusinessError((ApiBusinessError) apiResponse.getError(),
+        (ApiResponseData) apiResponse.getResult());
     businessError.setBusinessContentType(BusinessContentType.BUSINESS_ERROR_CONTENT);
     return new BusinessObject<>(null, businessError);
   }
 
-  private  BusinessObject createExceptionErrorResponseBusinessObject(
+  private BusinessObject createExceptionErrorResponseBusinessObject(
       ApiGenericExceptionResponse apiResponse) {
 
     ApiGenericExceptionResponse exceptionResponse = apiResponse;
@@ -88,10 +100,8 @@ public abstract class ApiGenericResponseMapper<ModelData, ApiResponseData, ApiBu
 
   private BusinessError createCleanBusinessError() {
 
-    BusinessError businessError = new BusinessError(
-        BusinessError.EXCEPTION_BUSINESS_ERROR_CODE,
-        BusinessError.NO_ERROR_BUSINESS_ERROR_MESSAGE,
-        BusinessContentType.EXCEPTION_CONTENT);
+    BusinessError businessError = new BusinessError(BusinessError.EXCEPTION_BUSINESS_ERROR_CODE,
+        BusinessError.NO_ERROR_BUSINESS_ERROR_MESSAGE, BusinessContentType.EXCEPTION_CONTENT);
 
     businessError.setBusinessContentType(BusinessContentType.NO_ERROR_CONTENT);
 
@@ -100,6 +110,6 @@ public abstract class ApiGenericResponseMapper<ModelData, ApiResponseData, ApiBu
 
   protected abstract BusinessError onException(ApiGenericExceptionResponse exceptionResponse);
 
-  protected abstract BusinessError createBusinessError(ApiBusinessError businessError, ApiResponseData result);
-
+  protected abstract BusinessError createBusinessError(ApiBusinessError businessError,
+      ApiResponseData result);
 }

@@ -1,15 +1,6 @@
 package com.gigigo.ggglib.network.retrofit;
 
-import com.gigigo.ggglib.network.client.NetworkClient;
-import com.gigigo.ggglib.network.executors.NetworkExecutor;
-import com.gigigo.ggglib.network.retrofit.client.RetrofitNetworkClientBuilder;
-import com.gigigo.ggglib.network.retrofit.context.GitHubApiClient;
-import com.gigigo.ggglib.network.retrofit.context.collaborators.GithubRetryOnErrorPolicyImpl;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericResponse;
-import com.gigigo.ggglib.network.retrofit.context.responses.GitHubDataResponse;
-import com.gigigo.ggglib.network.retrofit.context.responses.GitHubResponse;
 import com.gigigo.ggglib.network.retrofit.context.responses.utils.ResponseUtils;
-import com.gigigo.ggglib.network.retrofit.executors.RetrofitNetworkExecutorBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -18,19 +18,21 @@
 
 package com.gigigo.ggglib.network.retrofit.context.responses;
 
-public interface ApiGenericResponse<Result, Error> {
+public abstract class ApiGenericResponse<Result, Error> {
 
-  <Result> Result getResult();
+  protected HttpResponse httpResponse;
 
-  void setResult(Result result);
+  public abstract Result getResult();
 
-  <Error> Error getBusinessError();
+  public abstract Error getError();
 
-  void setBusinessError(Error businessError);
+  public HttpResponse getHttpResponse() {
+    return this.httpResponse;
+  }
 
-  HttpResponse getHttpResponse();
+  public void setHttpResponse(HttpResponse httpResponse) {
+    this.httpResponse = httpResponse;
+  }
 
-  void setHttpResponse(HttpResponse httpResponse);
-
-  boolean isException();
+  public abstract ApiResponseStatus getResponseStatus();
 }

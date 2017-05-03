@@ -2,7 +2,7 @@ package com.gigigo.ggglib.network.retrofit.context.responses;
 
 import com.google.gson.annotations.SerializedName;
 
-public class GitHubDataResponse {
+public class GithubDataResponse {
 
   private String login;
 
