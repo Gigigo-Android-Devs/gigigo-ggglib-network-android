@@ -16,18 +16,18 @@
  * limitations under the License.
  */
 
-package com.gigigo.ggglib.network.retrofit.context.responses;
+package com.gigigo.ggglib.network.responses;
 
-public class ApiGenericExceptionResponse implements ApiGenericResponse<Object, Exception> {
+public class ApiGenericExceptionResponse extends ApiGenericResponse<Object, Exception> {
 
-  public static final int HTTP_EXCEPTION_CODE = -222;
+  public static final int HTTP_EXCEPTION_CODE = -500;
 
   private Exception exception;
-  private HttpResponse httpResponse;
 
   public ApiGenericExceptionResponse(Exception exception) {
     this.exception = exception;
-    httpResponse = HttpResponse.getHttpResponseExceptionInstance(HTTP_EXCEPTION_CODE, exception);
+    this.httpResponse = HttpResponse.getHttpResponseExceptionInstance(HTTP_EXCEPTION_CODE,
+        exception.getLocalizedMessage());
   }
 
   public static ApiGenericExceptionResponse getApiGenericExceptionResponseInstance(Exception e) {
@@ -38,26 +38,11 @@ public class ApiGenericExceptionResponse implements ApiGenericResponse<Object, E
     return null;
   }
 
-  @Override public void setResult(Object e) {
+  @Override public Exception getError() {
+    return this.exception;
   }
 
-  @Override public Exception getBusinessError() {
-    return exception;
-  }
-
-  @Override public void setBusinessError(Exception businessError) {
-    this.exception = businessError;
-  }
-
-  @Override public HttpResponse getHttpResponse() {
-    return httpResponse;
-  }
-
-  @Override public void setHttpResponse(HttpResponse httpResponse) {
-    this.httpResponse = httpResponse;
-  }
-
-  @Override public boolean isException() {
-    return true;
+  @Override public ApiResponseStatus getResponseStatus() {
+    return ApiResponseStatus.EXCEPTION;
   }
 }

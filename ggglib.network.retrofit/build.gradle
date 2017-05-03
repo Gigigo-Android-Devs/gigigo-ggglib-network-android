@@ -13,7 +13,7 @@ android {
     targetSdkVersion parent.ext.androidTargetSdkVersion
 
     versionCode generateAutoVersionCode()
-    versionName generateVersionName(1,0,0)
+    versionName generateVersionName(1,1,0)
   }
 
   buildTypes {

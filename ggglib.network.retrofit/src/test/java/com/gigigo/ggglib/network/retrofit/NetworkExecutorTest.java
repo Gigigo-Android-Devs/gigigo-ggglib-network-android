@@ -5,13 +5,14 @@ import com.gigigo.ggglib.network.defaultelements.RetryOnErrorPolicy;
 import com.gigigo.ggglib.network.executors.NetworkExecutor;
 import com.gigigo.ggglib.network.retrofit.client.RetrofitNetworkClient;
 import com.gigigo.ggglib.network.retrofit.context.BaseApiClient;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiDataTestMock;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiErrorResponseMock;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericExceptionResponse;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericResponse;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiResponseMock;
-import com.gigigo.ggglib.network.retrofit.context.responses.HttpResponse;
-import com.gigigo.ggglib.network.retrofit.context.responses.utils.ResponseUtils;
+import com.gigigo.ggglib.network.responses.ApiErrorDataMock;
+import com.gigigo.ggglib.network.responses.ApiErrorResponseMock;
+import com.gigigo.ggglib.network.responses.ApiGenericExceptionResponse;
+import com.gigigo.ggglib.network.responses.ApiGenericResponse;
+import com.gigigo.ggglib.network.responses.ApiResponseStatus;
+import com.gigigo.ggglib.network.responses.ApiResultDataMock;
+import com.gigigo.ggglib.network.responses.HttpResponse;
+import com.gigigo.ggglib.network.responses.utils.ResponseUtils;
 import com.gigigo.ggglib.network.retrofit.converters.DefaultErrorConverterImpl;
 import com.gigigo.ggglib.network.retrofit.executors.RetrofitNetworkExecutorBuilder;
 import com.gigigo.ggglib.network.retry.DefaultRetryOnErrorPolicyImpl;
@@ -108,7 +109,7 @@ public class NetworkExecutorTest {
     ApiGenericResponse apiGenericResponse =
         apiServiceExecutor.call(apiClient.testHttpConnection("ok"));
 
-    ApiDataTestMock testResponse = (ApiDataTestMock) apiGenericResponse.getResult();
+    ApiResultDataMock testResponse = (ApiResultDataMock) apiGenericResponse.getResult();
 
     assertEquals(testResponse.getTest(), "Hello World");
     assertEquals(apiGenericResponse.getHttpResponse().getHttpStatus(), 200);
@@ -120,8 +121,9 @@ public class NetworkExecutorTest {
     ApiGenericResponse apiGenericResponse =
         apiServiceExecutor.call(apiClient.testHttpConnection("error"));
 
-    ApiErrorResponseMock testResponse = (ApiErrorResponseMock) apiGenericResponse.getResult();
+    ApiErrorDataMock testResponse = (ApiErrorDataMock) apiGenericResponse.getError();
 
+    assertEquals(apiGenericResponse.getResponseStatus(), ApiResponseStatus.ERROR);
     assertEquals(testResponse.getMessage(), "Error.");
     assertEquals(apiGenericResponse.getHttpResponse().getHttpStatus(), ERROR_RESPONSE_CODE);
   }
@@ -138,7 +140,7 @@ public class NetworkExecutorTest {
     ApiGenericResponse apiGenericResponse =
         apiServiceExecutor.call(apiClient.testHttpConnection("bad"));
 
-    Exception exception = (Exception) apiGenericResponse.getBusinessError();
+    Exception exception = (Exception) apiGenericResponse.getError();
     HttpResponse httpResponse = apiGenericResponse.getHttpResponse();
     assertNotNull(exception);
     assertEquals(httpResponse.getHttpStatus(), ApiGenericExceptionResponse.HTTP_EXCEPTION_CODE);
@@ -149,15 +151,14 @@ public class NetworkExecutorTest {
   }
 
   private NetworkExecutor getServiceExecutorExceptionHandlerInstance() {
-    return new RetrofitNetworkExecutorBuilder(networkClient, ApiResponseMock.class).errorConverter(
-        buildErrorConverterInstance())
-        .retryOnErrorPolicy(buildErrorPolicyInstanceWithoutThrowException())
-        .build();
+    return new RetrofitNetworkExecutorBuilder(networkClient,
+        ApiErrorResponseMock.class).retryOnErrorPolicy(
+        buildErrorPolicyInstanceWithoutThrowException()).build();
   }
 
   private NetworkExecutor getServiceExecutorInstance() {
-    return new RetrofitNetworkExecutorBuilder(networkClient, ApiResponseMock.class).errorConverter(
-        buildErrorConverterInstance()).retryOnErrorPolicy(buildErrorPolicyInstance()).build();
+    return new RetrofitNetworkExecutorBuilder(networkClient,
+        ApiErrorResponseMock.class).retryOnErrorPolicy(buildErrorPolicyInstance()).build();
   }
 
   private RetryOnErrorPolicy buildErrorPolicyInstance() {

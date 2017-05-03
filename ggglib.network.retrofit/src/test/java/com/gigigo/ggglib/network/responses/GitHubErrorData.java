@@ -1,14 +1,11 @@
-package com.gigigo.ggglib.network.retrofit.context.responses;
+package com.gigigo.ggglib.network.responses;
 
 import com.google.gson.annotations.SerializedName;
 
-public class GitHubErrorResponse {
+public class GitHubErrorData {
 
-  //Error fields
   @SerializedName("message") private String message;
   @SerializedName("documentation_url") private String documentationUrl;
-
-  private HttpResponse httpResponse;
 
   public String getMessage() {
     return message;

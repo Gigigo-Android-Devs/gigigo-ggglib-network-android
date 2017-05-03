@@ -18,18 +18,19 @@
 
 package com.gigigo.ggglib.network.retrofit.converters;
 
+import com.gigigo.ggglib.network.responses.ApiGenericResponse;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 
-public class RetrofitErrorConverter<ErrorResponse>
+public class RetrofitErrorConverter<ErrorResponse extends ApiGenericResponse>
     implements Converter<ResponseBody, ErrorResponse> {
 
   private Converter<ResponseBody, ErrorResponse> converter;
 
-  public RetrofitErrorConverter(Retrofit retrofit, Class<ErrorResponse> errorResponseType) {
+  public RetrofitErrorConverter(Retrofit retrofit, Class<ApiGenericResponse> errorResponseType) {
     converter = retrofit.responseBodyConverter(errorResponseType, new Annotation[0]);
   }
 

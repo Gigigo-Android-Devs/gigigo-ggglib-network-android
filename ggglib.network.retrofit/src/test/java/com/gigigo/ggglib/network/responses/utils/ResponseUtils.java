@@ -1,4 +1,4 @@
-package com.gigigo.ggglib.network.retrofit.context.responses.utils;
+package com.gigigo.ggglib.network.responses.utils;
 
 import java.io.BufferedReader;
 import java.io.File;

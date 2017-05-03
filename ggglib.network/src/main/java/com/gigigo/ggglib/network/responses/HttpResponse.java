@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.gigigo.ggglib.network.retrofit.context.responses;
+package com.gigigo.ggglib.network.responses;
 
 public class HttpResponse {
   private int httpStatus;
@@ -27,8 +27,8 @@ public class HttpResponse {
     this.statusMessage = statusMessage;
   }
 
-  public static HttpResponse getHttpResponseExceptionInstance(int code, Exception exception) {
-    return new HttpResponse(code, exception.getLocalizedMessage());
+  public static HttpResponse getHttpResponseExceptionInstance(int code, String statusMessage) {
+    return new HttpResponse(code, statusMessage);
   }
 
   public int getHttpStatus() {

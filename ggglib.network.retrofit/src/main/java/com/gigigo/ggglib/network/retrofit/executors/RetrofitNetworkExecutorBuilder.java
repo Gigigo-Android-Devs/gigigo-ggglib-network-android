@@ -4,7 +4,7 @@ import com.gigigo.ggglib.network.client.NetworkClient;
 import com.gigigo.ggglib.network.executors.NetworkExecutor;
 import com.gigigo.ggglib.network.executors.NetworkExecutorBuilder;
 import com.gigigo.ggglib.network.retrofit.client.RetrofitNetworkClient;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericResponse;
+import com.gigigo.ggglib.network.responses.ApiGenericResponse;
 import com.gigigo.ggglib.network.retrofit.converters.DefaultErrorConverterImpl;
 import com.gigigo.ggglib.network.retry.DefaultRetryOnErrorPolicyImpl;
 

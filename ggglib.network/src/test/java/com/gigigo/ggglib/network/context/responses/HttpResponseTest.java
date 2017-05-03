@@ -1,6 +1,6 @@
 package com.gigigo.ggglib.network.context.responses;
 
-import com.gigigo.ggglib.network.retrofit.context.responses.HttpResponse;
+import com.gigigo.ggglib.network.responses.HttpResponse;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
@@ -12,7 +12,7 @@ public class HttpResponseTest {
 
     Exception e = new Exception("Hello Exception World");
 
-    HttpResponse httpResponse = HttpResponse.getHttpResponseExceptionInstance(-222, e);
+    HttpResponse httpResponse = HttpResponse.getHttpResponseExceptionInstance(-222, e.getLocalizedMessage());
 
     assertNotNull(httpResponse);
     assertEquals(httpResponse.getHttpStatus(), -222);

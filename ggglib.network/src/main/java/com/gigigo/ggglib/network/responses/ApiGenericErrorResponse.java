@@ -16,11 +16,19 @@
  * limitations under the License.
  */
 
-package com.gigigo.ggglib.network.converters;
+package com.gigigo.ggglib.network.responses;
 
-import com.gigigo.ggglib.network.responses.ApiGenericResponse;
-import java.io.IOException;
+public abstract class ApiGenericErrorResponse<Error> extends ApiGenericResponse<Object, Error> {
 
-public interface ErrorConverter<ResponseBody> {
-  ApiGenericResponse convert(ResponseBody value) throws IOException;
+  @Override public Object getResult() {
+    return null;
+  }
+
+  public abstract Error getError();
+
+  public abstract void setError(Error error);
+
+  public ApiResponseStatus getResponseStatus() {
+    return ApiResponseStatus.ERROR;
+  }
 }

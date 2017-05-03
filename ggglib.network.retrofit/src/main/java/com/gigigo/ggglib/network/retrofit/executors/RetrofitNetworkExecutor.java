@@ -23,9 +23,11 @@ import com.gigigo.ggglib.logger.LogLevel;
 import com.gigigo.ggglib.network.converters.ErrorConverter;
 import com.gigigo.ggglib.network.defaultelements.RetryOnErrorPolicy;
 import com.gigigo.ggglib.network.executors.NetworkExecutor;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericExceptionResponse;
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericResponse;
-import com.gigigo.ggglib.network.retrofit.context.responses.HttpResponse;
+import com.gigigo.ggglib.network.responses.ApiGenericErrorResponse;
+import com.gigigo.ggglib.network.responses.ApiGenericExceptionResponse;
+import com.gigigo.ggglib.network.responses.ApiGenericResponse;
+import com.gigigo.ggglib.network.responses.ApiResponseStatus;
+import com.gigigo.ggglib.network.responses.HttpResponse;
 import java.io.IOException;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -47,7 +49,6 @@ public class RetrofitNetworkExecutor implements NetworkExecutor<Call<ApiGenericR
     Call<ApiGenericResponse> clonedCall;
     int tries = 0;
     Exception exception = null;
-    boolean success = false;
 
     do {
       Response<ApiGenericResponse> retrofitResponse = null;
@@ -55,15 +56,14 @@ public class RetrofitNetworkExecutor implements NetworkExecutor<Call<ApiGenericR
         tries++;
         clonedCall = requestType.clone();
         retrofitResponse = clonedCall.execute();
-        success = retrofitResponse.isSuccessful();
         apiResponse = parseRetrofitResponseToApi(retrofitResponse);
       } catch (Exception e) {
         exception = e;
-        apiResponse = ApiGenericExceptionResponse.getApiGenericExceptionResponseInstance(e);
+        apiResponse = buildApiExceptionResponse(e);
 
         GGGLogImpl.log(e.getMessage(), LogLevel.ERROR);
       }
-    } while (shouldRetry(tries, apiResponse, success, exception));
+    } while (shouldRetry(tries, apiResponse, exception));
 
     return apiResponse;
   }
@@ -71,7 +71,7 @@ public class RetrofitNetworkExecutor implements NetworkExecutor<Call<ApiGenericR
   private <ApiResponse extends ApiGenericResponse> ApiGenericResponse parseRetrofitResponseToApi(
       Response<ApiResponse> retrofitResponse) throws IOException {
 
-    ApiResponse apiResponse;
+    ApiGenericResponse apiResponse;
 
     if (retrofitResponse.isSuccessful()) {
       apiResponse = retrofitResponse.body();
@@ -84,36 +84,42 @@ public class RetrofitNetworkExecutor implements NetworkExecutor<Call<ApiGenericR
     return apiResponse;
   }
 
-  private <ApiResponse extends ApiGenericResponse> ApiResponse buildApiErrorResponse(Response<ApiResponse> retrofitResponse)
-      throws IOException {
-    return (ApiResponse) errorConverter.convert(retrofitResponse.errorBody());
+  private <ApiResponse extends ApiGenericResponse> ApiGenericResponse buildApiErrorResponse(
+      Response<ApiResponse> retrofitResponse) throws IOException {
+
+    return errorConverter.convert(retrofitResponse.errorBody());
   }
 
-  private boolean shouldRetry(int tries, ApiGenericResponse apiGenericResponse, boolean success,
-      Exception e) {
+  private ApiGenericResponse buildApiExceptionResponse(Exception exception) {
 
-    if (success) {
-      return false;
-    } else {
-      return retryPolicyResult(tries, apiGenericResponse, e);
+    return ApiGenericExceptionResponse.getApiGenericExceptionResponseInstance(exception);
+  }
+
+  private boolean shouldRetry(int tries, ApiGenericResponse apiGenericResponse, Exception e) {
+
+    boolean retry = false;
+    if (apiGenericResponse.getResponseStatus() != ApiResponseStatus.OK) {
+      retry = retryPolicyResult(tries, apiGenericResponse, e);
     }
+
+    return retry;
   }
 
   private boolean retryPolicyResult(int tries, ApiGenericResponse apiResponse, Exception e) {
     if (e != null) {
       return exceptionRetryPolicyResult(tries, e);
     } else {
-      return businessErrorRetryPolicyResult(tries, apiResponse);
+      return businessErrorRetryPolicyResult(tries, (ApiGenericErrorResponse) apiResponse);
     }
-  }
-
-  private boolean businessErrorRetryPolicyResult(int tries, ApiGenericResponse apiResponse) {
-    Object businessResponse = apiResponse.getBusinessError();
-    HttpResponse httpResponse = apiResponse.getHttpResponse();
-    return retryOnErrorPolicy.shouldRetryWithErrorAndTries(tries, businessResponse, httpResponse);
   }
 
   private boolean exceptionRetryPolicyResult(int tries, Exception e) {
     return retryOnErrorPolicy.shouldRetryOnException(tries, e);
+  }
+
+  private boolean businessErrorRetryPolicyResult(int tries, ApiGenericErrorResponse apiResponse) {
+    Object businessResponse = apiResponse.getError();
+    HttpResponse httpResponse = apiResponse.getHttpResponse();
+    return retryOnErrorPolicy.shouldRetryWithErrorAndTries(tries, businessResponse, httpResponse);
   }
 }

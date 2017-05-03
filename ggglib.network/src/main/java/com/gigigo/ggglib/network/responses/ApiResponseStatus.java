@@ -16,21 +16,8 @@
  * limitations under the License.
  */
 
-package com.gigigo.ggglib.network.retrofit.context.responses;
+package com.gigigo.ggglib.network.responses;
 
-public interface ApiGenericResponse<Result, Error> {
-
-  <Result> Result getResult();
-
-  void setResult(Result result);
-
-  <Error> Error getBusinessError();
-
-  void setBusinessError(Error businessError);
-
-  HttpResponse getHttpResponse();
-
-  void setHttpResponse(HttpResponse httpResponse);
-
-  boolean isException();
+public enum ApiResponseStatus {
+  OK, EXCEPTION, ERROR
 }

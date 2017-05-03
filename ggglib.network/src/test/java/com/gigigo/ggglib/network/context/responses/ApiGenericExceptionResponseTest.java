@@ -1,6 +1,6 @@
 package com.gigigo.ggglib.network.context.responses;
 
-import com.gigigo.ggglib.network.retrofit.context.responses.ApiGenericExceptionResponse;
+import com.gigigo.ggglib.network.responses.ApiGenericExceptionResponse;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
@@ -17,10 +17,10 @@ public class ApiGenericExceptionResponseTest {
         ApiGenericExceptionResponse.getApiGenericExceptionResponseInstance(e);
 
     assertNotNull(apiGenericExceptionResponse);
-    assertNotNull(apiGenericExceptionResponse.getBusinessError());
+    assertNotNull(apiGenericExceptionResponse.getError());
     assertNotNull(apiGenericExceptionResponse.getHttpResponse());
     assertNull(apiGenericExceptionResponse.getResult());
-    assertEquals(apiGenericExceptionResponse.getBusinessError().getMessage(),
+    assertEquals(apiGenericExceptionResponse.getError().getMessage(),
         "Hello Exception World");
   }
 }
