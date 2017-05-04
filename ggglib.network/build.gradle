@@ -16,76 +16,31 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'java'
+apply plugin: 'maven'
 
-group='com.github.Gigigo-Android-Devs'
-
-android {
-  compileSdkVersion parent.ext.androidCompileSdkVersion
-  buildToolsVersion parent.ext.androidBuildToolsVersion
-
-  defaultConfig {
-    minSdkVersion parent.ext.androidMinSdkVersion
-    targetSdkVersion parent.ext.androidTargetSdkVersion
-
-    versionCode generateAutoVersionCode()
-    versionName generateVersionName(1,1,0)
-  }
-
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_7
-    targetCompatibility JavaVersion.VERSION_1_7
-  }
-
-  packagingOptions {
-    exclude 'META-INF/services/javax.annotation.processing.Processor'
-    exclude 'LICENSE.txt'
-  }
-
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-    }
-  }
-
-  lintOptions {
-    abortOnError false
-  }
-
-  testOptions {
-    unitTests.returnDefaultValues = true
-  }
-}
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7
 
 dependencies {
   compile parent.ext.libraries.gggLibCore
-  compile parent.ext.libraries.gggLibLogger
   compile parent.ext.libraries.gggLibMappers
 
   testCompile parent.ext.testLibraries.junit
   testCompile parent.ext.testLibraries.mockito
 }
 
-// build a jar with source files
-task sourcesJar(type: Jar) {
-  from android.sourceSets.main.java.srcDirs
+test {
+  testLogging {
+    events 'started', 'passed'
+  }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
   classifier = 'sources'
+  from sourceSets.main.allSource
 }
 
-task javadoc(type: Javadoc) {
-  source = android.sourceSets.main.java.srcDirs
-  classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-
-afterEvaluate {
-  javadoc.classpath +=
-      files(android.libraryVariants.collect { variant -> variant.javaCompile.classpath.files
-      })
-}
-
-// build a jar with javadoc
 task javadocJar(type: Jar, dependsOn: javadoc) {
   classifier = 'javadoc'
   from javadoc.destinationDir
@@ -94,4 +49,8 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 artifacts {
   archives sourcesJar
   archives javadocJar
+}
+
+checkstyle {
+  configFile = rootProject.file('checkstyle.xml')
 }

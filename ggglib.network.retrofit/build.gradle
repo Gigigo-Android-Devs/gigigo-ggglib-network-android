@@ -46,11 +46,6 @@ dependencies {
   testCompile parent.ext.testLibraries.mockWebServer
 }
 
-// build a jar with source files
-task sourcesJar(type: Jar) {
-  from android.sourceSets.main.java.srcDirs
-  classifier = 'sources'
-}
 
 task javadoc(type: Javadoc) {
   source = android.sourceSets.main.java.srcDirs
@@ -61,6 +56,12 @@ afterEvaluate {
   javadoc.classpath +=
       files(android.libraryVariants.collect { variant -> variant.javaCompile.classpath.files
       })
+}
+
+// build a jar with source files
+task sourcesJar(type: Jar) {
+  from android.sourceSets.main.java.srcDirs
+  classifier = 'sources'
 }
 
 // build a jar with javadoc
