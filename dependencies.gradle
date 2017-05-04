@@ -26,9 +26,9 @@ allprojects {
                  loggingInterceptor   : 'com.squareup.okhttp3:logging-interceptor:3.5.0',
                  gson                 : 'com.google.code.gson:gson:2.6.2',
 
-                 gggLibCore           : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.core:1.0.1',
-                 gggLibLogger         : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.logger:1.0.1',
-                 gggLibMappers        : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.mappers:1.0.1',
+                 gggLibCore           : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.core:1.0.2',
+                 gggLibLogger         : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.logger:1.0.2',
+                 gggLibMappers        : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.mappers:1.0.2',
 
                  gggLibNetwork        : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-network-library-android:ggglib.network:1.0.0',
                  gggLibNetworkRetrofit: 'com.github.Gigigo-Android-Devs.gigigo-ggglib-network-library-android:ggglib.network.retrofit:1.0.0']
