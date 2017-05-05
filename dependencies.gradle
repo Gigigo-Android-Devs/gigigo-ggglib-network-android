@@ -23,12 +23,10 @@ allprojects {
                  retrofit          : 'com.squareup.retrofit2:retrofit:2.1.0',
                  gsonConverter     : 'com.squareup.retrofit2:converter-gson:2.1.0',
                  okHttp            : 'com.squareup.okhttp3:okhttp:3.5.0',
-                 loggingInterceptor: 'com.squareup.okhttp3:logging-interceptor:3.5.0',
-                 gson              : 'com.google.code.gson:gson:2.6.2',
 
-                 gggLibCore        : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.core:1.0.4',
-                 gggLibLogger      : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.logger:1.0.4',
-                 gggLibMappers     : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.mappers:1.0.4']
+                 gggLibCore        : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.core:1.0.5',
+                 gggLibLogger      : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.logger:1.0.5',
+                 gggLibMappers     : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.mappers:1.0.5']
 
     testLibraries = [mockito      : 'org.mockito:mockito-core:2.7.9',
                      junit        : 'junit:junit:4.12',

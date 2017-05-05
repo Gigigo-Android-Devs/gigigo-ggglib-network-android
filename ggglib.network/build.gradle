@@ -22,6 +22,7 @@ apply plugin: 'maven'
 sourceCompatibility = JavaVersion.VERSION_1_7
 targetCompatibility = JavaVersion.VERSION_1_7
 
+
 dependencies {
   compile parent.ext.libraries.gggLibCore
   compile parent.ext.libraries.gggLibMappers

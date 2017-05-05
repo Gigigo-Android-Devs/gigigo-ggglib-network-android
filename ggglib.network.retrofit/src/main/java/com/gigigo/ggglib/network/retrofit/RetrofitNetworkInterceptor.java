@@ -10,5 +10,4 @@ import okhttp3.Response;
 
 public abstract class RetrofitNetworkInterceptor
     implements NetworkInterceptor<Response, Interceptor.Chain>, Interceptor {
-
 }

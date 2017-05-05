@@ -39,6 +39,7 @@ dependencies {
   compile parent.ext.libraries.okHttp
   compile parent.ext.libraries.gsonConverter
 
+  compile parent.ext.libraries.gggLibLogger
   compile parent.ext.modules.gggLibNetwork
 
   testCompile parent.ext.testLibraries.junit
