@@ -12,12 +12,16 @@ public abstract class NetworkExecutorBuilder {
   protected RetryOnErrorPolicy defaultRetryOnErrorPolicy;
 
   public NetworkExecutorBuilder errorConverter(ErrorConverter errorConverter) {
-    if (errorConverter != null) defaultErrorConverter = errorConverter;
+    if (errorConverter != null) {
+      defaultErrorConverter = errorConverter;
+    }
     return this;
   }
 
   public NetworkExecutorBuilder retryOnErrorPolicy(RetryOnErrorPolicy retryOnErrorPolicy) {
-    if (retryOnErrorPolicy != null) defaultRetryOnErrorPolicy = retryOnErrorPolicy;
+    if (retryOnErrorPolicy != null) {
+      defaultRetryOnErrorPolicy = retryOnErrorPolicy;
+    }
     return this;
   }
 

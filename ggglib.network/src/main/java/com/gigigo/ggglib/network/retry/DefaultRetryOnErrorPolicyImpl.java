@@ -16,11 +16,7 @@ public class DefaultRetryOnErrorPolicyImpl<Error> implements RetryOnErrorPolicy<
    */
   @Override public boolean shouldRetryWithErrorAndTries(int tries, Error error,
       HttpResponse httpResponse) {
-    if (tries < 3) {
-      return true;
-    } else {
-      return false;
-    }
+    return tries < 3;
   }
 
   @Override public boolean shouldRetryOnException(int tries, Exception e) {

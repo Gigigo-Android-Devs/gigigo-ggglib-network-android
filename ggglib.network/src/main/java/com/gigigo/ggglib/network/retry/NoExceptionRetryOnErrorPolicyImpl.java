@@ -17,18 +17,10 @@ public class NoExceptionRetryOnErrorPolicyImpl implements RetryOnErrorPolicy<Api
    */
   @Override public boolean shouldRetryWithErrorAndTries(int tries, ApiGenericResponse error,
       HttpResponse httpResponse) {
-    if (tries < 3) {
-      return true;
-    } else {
-      return false;
-    }
+    return tries < 3;
   }
 
   @Override public boolean shouldRetryOnException(int tries, Exception e) {
-    if (tries < 3) {
-      return true;
-    } else {
-      return false;
-    }
+    return tries < 3;
   }
 }
