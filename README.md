@@ -318,7 +318,7 @@ Dependencies
 
 Add dependency to *gradle* file:
 ```
-compile 'com.github.Gigigo-Android-Devs.gigigo-ggglib-network-library-android:ggglib.network.retrofit:1.0.0'
+compile 'com.github.Gigigo-Android-Devs.gigigo-ggglib-network-library-android:ggglib.network.retrofit:1.0.2'
 ```          
   
 Library internally depends on:
@@ -327,13 +327,14 @@ retrofit          : 'com.squareup.retrofit2:retrofit:2.1.0',
 gsonConverter     : 'com.squareup.retrofit2:converter-gson:2.1.0',
 okHttp            : 'com.squareup.okhttp3:okhttp:3.5.0',
 ```
-and other Gigigo libraries:
+and other [Gigigo libraries]:
 ```
 gggLibCore        : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.core:1.0.5',
 gggLibLogger      : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.logger:1.0.5',
 gggLibMappers     : 'com.github.Gigigo-Android-Devs.gigigo-ggglib-library-android:ggglib.mappers:1.0.5'
 ```
 
+[Gigigo libraries]: <https://github.com/Gigigo-Android-Devs/gigigo-ggglib-library-android>
 
 License
 =======
