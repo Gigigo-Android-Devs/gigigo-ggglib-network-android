@@ -1,7 +1,7 @@
 package com.gigigo.ggglib.network.executors;
 
 import com.gigigo.ggglib.network.converters.ErrorConverter;
-import com.gigigo.ggglib.network.defaultelements.RetryOnErrorPolicy;
+import com.gigigo.ggglib.network.retry.RetryOnErrorPolicy;
 
 /**
  * Created by rui.alonso on 28/3/17.

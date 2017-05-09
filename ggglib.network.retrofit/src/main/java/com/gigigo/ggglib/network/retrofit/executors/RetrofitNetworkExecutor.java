@@ -21,7 +21,7 @@ package com.gigigo.ggglib.network.retrofit.executors;
 import com.gigigo.ggglib.logger.GGGLogImpl;
 import com.gigigo.ggglib.logger.LogLevel;
 import com.gigigo.ggglib.network.converters.ErrorConverter;
-import com.gigigo.ggglib.network.defaultelements.RetryOnErrorPolicy;
+import com.gigigo.ggglib.network.retry.RetryOnErrorPolicy;
 import com.gigigo.ggglib.network.executors.NetworkExecutor;
 import com.gigigo.ggglib.network.responses.ApiGenericErrorResponse;
 import com.gigigo.ggglib.network.responses.ApiGenericExceptionResponse;

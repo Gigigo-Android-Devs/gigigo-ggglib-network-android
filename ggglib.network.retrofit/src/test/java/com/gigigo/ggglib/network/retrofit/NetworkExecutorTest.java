@@ -1,7 +1,7 @@
 package com.gigigo.ggglib.network.retrofit;
 
 import com.gigigo.ggglib.network.converters.ErrorConverter;
-import com.gigigo.ggglib.network.defaultelements.RetryOnErrorPolicy;
+import com.gigigo.ggglib.network.retry.RetryOnErrorPolicy;
 import com.gigigo.ggglib.network.executors.NetworkExecutor;
 import com.gigigo.ggglib.network.retrofit.client.RetrofitNetworkClient;
 import com.gigigo.ggglib.network.retrofit.context.BaseApiClient;

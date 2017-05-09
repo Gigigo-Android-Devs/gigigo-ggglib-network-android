@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.gigigo.ggglib.network.defaultelements;
+package com.gigigo.ggglib.network.retry;
 
 import com.gigigo.ggglib.network.responses.HttpResponse;
 

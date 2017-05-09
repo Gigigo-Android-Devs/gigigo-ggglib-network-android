@@ -1,7 +1,7 @@
 package com.gigigo.ggglib.network.retrofit.context.collaborators;
 
 import com.gigigo.ggglib.network.responses.GitHubErrorData;
-import com.gigigo.ggglib.network.defaultelements.RetryOnErrorPolicy;
+import com.gigigo.ggglib.network.retry.RetryOnErrorPolicy;
 import com.gigigo.ggglib.network.responses.HttpResponse;
 
 public class GithubRetryOnErrorPolicyImpl implements RetryOnErrorPolicy<GitHubErrorData> {
