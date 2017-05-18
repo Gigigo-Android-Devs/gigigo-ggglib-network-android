@@ -18,7 +18,7 @@
 
 allprojects {
   ext {
-    libraries = [androidSupportV7  : 'com.android.support:appcompat-v7:25.0.3',
+    libraries = [androidSupportV7  : 'com.android.support:appcompat-v7:25.2.0',
 
                  retrofit          : 'com.squareup.retrofit2:retrofit:2.1.0',
                  gsonConverter     : 'com.squareup.retrofit2:converter-gson:2.1.0',
