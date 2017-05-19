@@ -81,7 +81,7 @@ public class NetworkClientBuilderExecutorTest {
     NetworkClient networkClient =
         new RetrofitNetworkClientBuilder(server.url("/").toString(), BaseApiClient.class).build();
 
-    NetworkExecutor networkExecutor = new RetrofitNetworkExecutorBuilder(networkClient, ApiResultResponseMock.class).build();
+    NetworkExecutor networkExecutor = new RetrofitNetworkExecutorBuilder(networkClient, ApiErrorResponseMock.class).build();
 
     BaseApiClient apiClient = (BaseApiClient) networkClient.getApiClient();
 

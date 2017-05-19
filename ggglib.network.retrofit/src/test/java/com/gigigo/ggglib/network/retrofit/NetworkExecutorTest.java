@@ -1,6 +1,8 @@
 package com.gigigo.ggglib.network.retrofit;
 
+import com.gigigo.ggglib.network.client.NetworkClient;
 import com.gigigo.ggglib.network.converters.ErrorConverter;
+import com.gigigo.ggglib.network.retrofit.client.RetrofitNetworkClientBuilder;
 import com.gigigo.ggglib.network.retry.RetryOnErrorPolicy;
 import com.gigigo.ggglib.network.executors.NetworkExecutor;
 import com.gigigo.ggglib.network.retrofit.client.RetrofitNetworkClient;
@@ -39,9 +41,8 @@ import static org.mockito.Mockito.when;
 public class NetworkExecutorTest {
 
   private final static int ERROR_RESPONSE_CODE = 500;
-  @Mock RetrofitNetworkClient networkClient;
   private MockWebServer server;
-  private Retrofit retrofit;
+  private NetworkClient networkClient;
   private BaseApiClient apiClient;
 
   @Before public void setUp() throws Exception {
@@ -49,8 +50,6 @@ public class NetworkExecutorTest {
     this.server = new MockWebServer();
     server.setDispatcher(getMockwebserverDispatcherInstance());
     apiClient = initializeApiclient();
-
-    when(networkClient.getRetrofit()).thenReturn(retrofit);
   }
 
   private Dispatcher getMockwebserverDispatcherInstance() {
@@ -77,12 +76,11 @@ public class NetworkExecutorTest {
   }
 
   private BaseApiClient initializeApiclient() {
-    Retrofit retrofit = new Retrofit.Builder().baseUrl(server.url("/").toString())
-        .addConverterFactory(GsonConverterFactory.create())
-        .build();
+    networkClient =
+        new RetrofitNetworkClientBuilder(server.url("/").toString(), BaseApiClient.class).build();
 
-    this.retrofit = retrofit;
-    return retrofit.create(BaseApiClient.class);
+    //((RetrofitNetworkClient)networkClient).getRetrofit();
+    return (BaseApiClient) networkClient.getApiClient();
   }
 
   /*
@@ -167,9 +165,5 @@ public class NetworkExecutorTest {
 
   private RetryOnErrorPolicy buildErrorPolicyInstanceWithoutThrowException() {
     return new NoExceptionRetryOnErrorPolicyImpl();
-  }
-
-  private ErrorConverter buildErrorConverterInstance() {
-    return new DefaultErrorConverterImpl(retrofit, ApiErrorResponseMock.class);
   }
 }
