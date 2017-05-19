@@ -1,12 +1,7 @@
 package com.gigigo.ggglib.network.retrofit;
 
 import com.gigigo.ggglib.network.client.NetworkClient;
-import com.gigigo.ggglib.network.converters.ErrorConverter;
-import com.gigigo.ggglib.network.retrofit.client.RetrofitNetworkClientBuilder;
-import com.gigigo.ggglib.network.retry.RetryOnErrorPolicy;
 import com.gigigo.ggglib.network.executors.NetworkExecutor;
-import com.gigigo.ggglib.network.retrofit.client.RetrofitNetworkClient;
-import com.gigigo.ggglib.network.retrofit.context.BaseApiClient;
 import com.gigigo.ggglib.network.responses.ApiErrorDataMock;
 import com.gigigo.ggglib.network.responses.ApiErrorResponseMock;
 import com.gigigo.ggglib.network.responses.ApiGenericExceptionResponse;
@@ -15,10 +10,12 @@ import com.gigigo.ggglib.network.responses.ApiResponseStatus;
 import com.gigigo.ggglib.network.responses.ApiResultDataMock;
 import com.gigigo.ggglib.network.responses.HttpResponse;
 import com.gigigo.ggglib.network.responses.utils.ResponseUtils;
-import com.gigigo.ggglib.network.retrofit.converters.DefaultErrorConverterImpl;
+import com.gigigo.ggglib.network.retrofit.client.RetrofitNetworkClientBuilder;
+import com.gigigo.ggglib.network.retrofit.context.BaseApiClient;
 import com.gigigo.ggglib.network.retrofit.executors.RetrofitNetworkExecutorBuilder;
 import com.gigigo.ggglib.network.retry.DefaultRetryOnErrorPolicyImpl;
 import com.gigigo.ggglib.network.retry.NoExceptionRetryOnErrorPolicyImpl;
+import com.gigigo.ggglib.network.retry.RetryOnErrorPolicy;
 import com.squareup.okhttp.mockwebserver.Dispatcher;
 import com.squareup.okhttp.mockwebserver.MockResponse;
 import com.squareup.okhttp.mockwebserver.MockWebServer;
@@ -26,14 +23,10 @@ import com.squareup.okhttp.mockwebserver.RecordedRequest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
-import static org.mockito.Mockito.when;
 
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
