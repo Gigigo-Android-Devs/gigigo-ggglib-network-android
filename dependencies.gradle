@@ -18,15 +18,15 @@
 
 allprojects {
   ext {
-    libraries = [androidSupportV7  : 'com.android.support:appcompat-v7:25.2.0',
+    libraries = [androidSupportV7  : 'com.android.support:appcompat-v7:24.2.1',
 
                  retrofit          : 'com.squareup.retrofit2:retrofit:2.1.0',
                  gsonConverter     : 'com.squareup.retrofit2:converter-gson:2.1.0',
                  okHttp            : 'com.squareup.okhttp3:okhttp:3.5.0',
 
-                 gggLibCore        : 'com.github.gigigoapps.gigigo-android-lib:ggglib.core:1.0.10',
-                 gggLibLogger      : 'com.github.gigigoapps.gigigo-android-lib:ggglib.logger:1.0.10',
-                 gggLibMappers     : 'com.github.gigigoapps.gigigo-android-lib:ggglib.mappers:1.0.10']
+                 gggLibCore        : 'com.github.gigigoapps.gigigo-android-lib:ggglib.core:1.0.12',
+                 gggLibLogger      : 'com.github.gigigoapps.gigigo-android-lib:ggglib.logger:1.0.12',
+                 gggLibMappers     : 'com.github.gigigoapps.gigigo-android-lib:ggglib.mappers:1.0.12']
 
     testLibraries = [mockito      : 'org.mockito:mockito-core:2.7.9',
                      junit        : 'junit:junit:4.12',
