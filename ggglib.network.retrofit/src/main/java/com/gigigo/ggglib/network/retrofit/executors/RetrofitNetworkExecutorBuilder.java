@@ -32,9 +32,6 @@ public class RetrofitNetworkExecutorBuilder extends NetworkExecutorBuilder {
       defaultRetryOnErrorPolicy = new DefaultRetryOnErrorPolicyImpl();
     }
 
-    NetworkExecutor apiServiceExecutor =
-        new RetrofitNetworkExecutor(defaultRetryOnErrorPolicy, defaultErrorConverter);
-
-    return apiServiceExecutor;
+    return new RetrofitNetworkExecutor(defaultRetryOnErrorPolicy, defaultErrorConverter);
   }
 }

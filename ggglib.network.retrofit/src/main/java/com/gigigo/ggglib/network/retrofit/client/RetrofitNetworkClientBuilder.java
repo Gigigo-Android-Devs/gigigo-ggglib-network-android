@@ -31,34 +31,34 @@ public class RetrofitNetworkClientBuilder
     this.apiClientClass = apiClientClass;
   }
 
-  @Override public RetrofitNetworkClientBuilder connectTimeout(int seconds) {
+  @Override public NetworkClientBuilder connectTimeout(int seconds) {
     connectTimeoutSeconds = seconds;
     return this;
   }
 
-  @Override public RetrofitNetworkClientBuilder readTimeout(int seconds) {
+  @Override public NetworkClientBuilder readTimeout(int seconds) {
     readTimeoutSeconds = seconds;
     return this;
   }
 
-  @Override public RetrofitNetworkClientBuilder writeTimeout(int seconds) {
+  @Override public NetworkClientBuilder writeTimeout(int seconds) {
     writeTimeoutSeconds = seconds;
     return this;
   }
 
   @Override
-  public RetrofitNetworkClientBuilder headersInterceptor(RetrofitNetworkInterceptor headersInterceptor) {
+  public NetworkClientBuilder headersInterceptor(RetrofitNetworkInterceptor headersInterceptor) {
     if (headersInterceptor != null) defaultHeadersInterceptor = headersInterceptor;
     return this;
   }
 
   @Override
-  public RetrofitNetworkClientBuilder loggingInterceptor(RetrofitNetworkInterceptor loggingInterceptor) {
+  public NetworkClientBuilder loggingInterceptor(RetrofitNetworkInterceptor loggingInterceptor) {
     if (loggingInterceptor != null) defaultLoggingInterceptor = loggingInterceptor;
     return this;
   }
 
-  @Override public RetrofitNetworkClientBuilder converterFactory(RetrofitResponseConverter converterFactory) {
+  @Override public NetworkClientBuilder converterFactory(RetrofitResponseConverter converterFactory) {
     if (converterFactory != null) defaultConverterFactory = converterFactory;
     return this;
   }
