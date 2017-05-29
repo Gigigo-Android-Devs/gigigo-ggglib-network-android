@@ -1,6 +1,19 @@
 language: android
 jdk: oraclejdk8
 
+branches:
+  only:
+  - master
+
+before_cache:
+  - rm -f  ${TRAVIS_BUILD_DIR}/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr ${TRAVIS_BUILD_DIR}/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - ${TRAVIS_BUILD_DIR}/.gradle/caches/
+    - ${TRAVIS_BUILD_DIR}/.gradle/wrapper/
+    - ${TRAVIS_BUILD_DIR}/.android/build-cache
+
 notifications:
   slack:
     secure: FgBSftFVmF1XmiX8Lg713p7pyUmmlUT1IfBue/gW/skP/6grsUbDnr3SOKOJkobbWTQY+OOak9UdmdkeDmwn1HiE1MB7gY8z2gecSSIxo7xKl/ck0VtWIzOH/kkhOQVIJpI9fesA+uDZC2MCIVUwVG/IMTbt3P85YcuUQVwKrCBQeS8+Rg/pyQLtZK2b8z7/i3L8HcPjvoFpxkAEyT02HOZmNZJLU2jI0wobunUNTX9IiBYKXtgIx0UvEXb3t7MhIOihJlOefGdM57fr9r4gbyel9L3EYt+zUtWYnQqV54J1LikxbFQPf8/89JDBe8jYLmRxGrY87W58JALSlRUE5DxUgKudUp5indmxAVwFA0sghDJMHshtIWRDfyCw7vzo7TWj5bD40sAKc4xgi85b8uUyT4Mobtg/mK6CjNkfRZQWKN+jAto+HtqEokfTBThHXUIQEEPz4x8sMraormE2+Q+wUyD+iKx3vReGBlRhtkmFcQPXHR0IGiYOFzfGXRAOlHid9Br2ofj+MFUnkiIzerwkCsxGeqSrchtKu2KG3eNR5IpeK3oWnTQ6YbaJOd8cpXAN9bHNVuhiSoqdWjOztkM97UBBX6t3w2wlLz17RkFvtFxIkB3XHs/lwWlNcRcEmyRBN4Gdw83TtgE1o+/W2Vpy+34hmEKse33eOD5DWug=
